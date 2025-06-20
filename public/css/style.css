@@ -1,17 +1,61 @@
 :root {
-    --brand-color: #013755;
+    --primary: rgb(16, 43, 16);
+    --primary_dark: rgb(12, 25, 12);
+    --primary_light: rgb(27, 53, 27);
+    --primary_text: rgb(18, 218, 18);
 }
 
-.navbar {
-    background-color: var(--brand-color);
+.container {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
-.btn-primary {
-    background-color: var(--brand-color);
-    border-color: var(--brand-color);
+.navbar_bar {
+    color: var(--primary_text);
+    background-color: var(--primary);
+    padding-left: 12.5%;
+    padding-right: 12.5%;
 }
 
-/* allows bootstrap to style Laminas Navigation generated menu items within the navbar */
-.navbar li.active a {
-    color: var(--bs-navbar-active-color);
+.nav-item {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
+
+.navbar_divider {
+    width: 1px;
+    height: 2em;
+    background-color: var(--primary_text);
+    margin: 0 2rem;
+}
+
+body{
+    background-color: var(--primary_dark);
+    color: var(--primary_text);
+}
+
+footer{
+    text-align: center;
+    color: var(--primary_text);
+    background-color: var(--primary);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 12.5%;
+    padding-right: 12.5%;
+}
+
+
+.card {
+    border: none;
+    background-color: var(--primary);
+    color: var(--primary_text);
+}
+
+.card-header{
+    background-color: var(--primary_light);
+}
+
+
