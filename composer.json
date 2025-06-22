@@ -26,7 +26,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Application\\": "module/Application/src/"
+            "Application\\": "module/Application/src/",
+            "Courses\\": "module/Courses/"
         }
     },
     "autoload-dev": {

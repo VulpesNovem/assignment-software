@@ -310,7 +310,7 @@ class ComposerStaticInitabed90f91b1c59b84a04515110d6c319
         ),
         'Courses\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/module/Courses/src',
+            0 => __DIR__ . '/../..' . '/module/Courses',
         ),
         'Composer\\XdebugHandler\\' => 
         array (
