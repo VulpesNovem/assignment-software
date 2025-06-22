@@ -1,32 +1,47 @@
 <?php
 
-declare(strict_types=1);
+/**
+ * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
+ */
 
 namespace Laminas\ComponentInstaller;
 
-use Laminas\ComponentInstaller\Injector\InjectorInterface;
-
-/**
- * @internal
- */
-final class ConfigOption
+class ConfigOption
 {
     /**
-     * @param non-empty-string $promptText
+     * @var Injector\InjectorInterface
      */
-    public function __construct(private readonly string $promptText, private readonly InjectorInterface $injector)
+    private $injector;
+
+    /**
+     * @var string
+     */
+    private $promptText;
+
+    /**
+     * @param string $promptText
+     * @param Injector\InjectorInterface $injector
+     */
+    public function __construct($promptText, Injector\InjectorInterface $injector)
     {
+        $this->promptText = $promptText;
+        $this->injector = $injector;
     }
 
     /**
-     * @return non-empty-string
+     * @return string
      */
-    public function getPromptText(): string
+    public function getPromptText()
     {
         return $this->promptText;
     }
 
-    public function getInjector(): InjectorInterface
+    /**
+     * @return Injector\InjectorInterface
+     */
+    public function getInjector()
     {
         return $this->injector;
     }

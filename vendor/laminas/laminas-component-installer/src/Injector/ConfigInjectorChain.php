@@ -1,70 +1,72 @@
 <?php
 
-declare(strict_types=1);
+/**
+ * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
+ */
 
 namespace Laminas\ComponentInstaller\Injector;
 
 use Laminas\ComponentInstaller\Collection;
 use Laminas\ComponentInstaller\ConfigDiscovery\DiscoveryChainInterface;
 
-use function array_merge;
-use function array_unique;
-use function array_values;
-use function in_array;
-
-/**
- * @internal
- */
-final class ConfigInjectorChain implements InjectorInterface
+class ConfigInjectorChain implements InjectorInterface
 {
     /**
      * ConfigInjectors Collection
      *
-     * @var Collection<string,InjectorInterface>
+     * @var Collection
      */
-    private readonly Collection $chain;
+    protected $chain;
 
     /**
      * Types this injector is allowed to register.
      *
      * Implementations MAY overwrite this value.
      *
-     * @var list<InjectorInterface::TYPE_*>
+     * @param int[]
      */
-    private array $allowedTypes = [];
+    protected $allowedTypes;
 
     /**
+     * Constructor
+     *
      * Optionally accept the project root directory; if non-empty, it is used
      * to prefix the $configFile.
      *
-     * @param array<string,class-string<InjectorInterface>> $injectors
-     * @param Collection<array-key,InjectorInterface::TYPE_*> $availableTypes
+     * @param mixed $injectors
+     * @param DiscoveryChainInterface $discoveryChain
+     * @param Collection $availableTypes
+     * @param string $projectRoot
      */
     public function __construct(
-        array $injectors,
+        $injectors,
         DiscoveryChainInterface $discoveryChain,
         Collection $availableTypes,
-        string $projectRoot = ''
+        $projectRoot = ''
     ) {
-        $this->chain = (new Collection($injectors))
+        $this->chain = Collection::create($injectors)
             // Keep only those injectors that discovery exists in discoveryChain
-            ->filter(
-                static fn(string $injector, string $file) => $discoveryChain->discoveryExists($file)
-            )
+            ->filter(function ($injector, $file) use ($discoveryChain) {
+                return $discoveryChain->discoveryExists($file);
+            })
             // Create an injector for the config file
-            ->map(
-                fn(string $injector): InjectorInterface => new $injector($projectRoot)
-            )
+            ->map(function ($injector) use ($projectRoot) {
+                return new $injector($projectRoot);
+            })
             // Keep only those injectors that match types available for the package
-            ->filter(fn(InjectorInterface $injector) => $availableTypes->anySatisfies(
-                fn(int $type) => $injector->registersType($type)
-            ));
+            ->filter(function ($injector) use ($availableTypes) {
+                return $availableTypes->reduce(function ($flag, $type) use ($injector) {
+                    return $flag || $injector->registersType($type);
+                }, false);
+            });
     }
 
     /**
      * {@inheritDoc}
      */
-    public function registersType(int $type): bool
+    public function registersType($type)
     {
         return in_array($type, $this->getTypesAllowed(), true);
     }
@@ -72,28 +74,28 @@ final class ConfigInjectorChain implements InjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function getTypesAllowed(): array
+    public function getTypesAllowed()
     {
         if ($this->allowedTypes) {
             return $this->allowedTypes;
         }
-
         $allowedTypes = [];
         foreach ($this->chain->getIterator() as $injector) {
-            $allowedTypes[] = $injector->getTypesAllowed();
+            $allowedTypes = $allowedTypes + $injector->getTypesAllowed();
         }
-
-        $this->allowedTypes = array_values(array_unique(array_merge([], ...$allowedTypes)));
-        return $this->allowedTypes;
+        $this->allowedTypes = $allowedTypes;
+        return $allowedTypes;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function isRegistered(string $package): bool
+    public function isRegistered($package)
     {
         $isRegisteredCount = $this->chain
-            ->filter(fn(InjectorInterface $injector): bool => $injector->isRegistered($package))
+            ->filter(function ($injector) use ($package) {
+                return $injector->isRegistered($package);
+            })
             ->count();
         return $this->chain->count() === $isRegisteredCount;
     }
@@ -101,7 +103,7 @@ final class ConfigInjectorChain implements InjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function inject(string $package, int $type): bool
+    public function inject($package, $type)
     {
         $injected = false;
 
@@ -116,7 +118,7 @@ final class ConfigInjectorChain implements InjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function remove(string $package): bool
+    public function remove($package)
     {
         $removed = false;
 
@@ -129,9 +131,10 @@ final class ConfigInjectorChain implements InjectorInterface
     }
 
     /**
-     * @return Collection<string,InjectorInterface>
+     *
+     * @return Collection
      */
-    public function getCollection(): Collection
+    public function getCollection()
     {
         return $this->chain;
     }
@@ -139,7 +142,7 @@ final class ConfigInjectorChain implements InjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function setApplicationModules(array $modules): self
+    public function setApplicationModules(array $modules)
     {
         return $this;
     }
@@ -147,7 +150,7 @@ final class ConfigInjectorChain implements InjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function setModuleDependencies(array $modules): self
+    public function setModuleDependencies(array $modules)
     {
         return $this;
     }

@@ -1,21 +1,21 @@
 <?php
 
-declare(strict_types=1);
+/**
+ * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
+ */
 
 namespace Laminas\ComponentInstaller\Injector;
 
-/**
- * @internal
- */
-final class NoopInjector implements InjectorInterface
+class NoopInjector implements InjectorInterface
 {
     /**
      * {@inheritDoc}
      *
-     * @param int $type
      * @return true
      */
-    public function registersType(int $type): bool
+    public function registersType($type)
     {
         return true;
     }
@@ -23,15 +23,16 @@ final class NoopInjector implements InjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function getTypesAllowed(): array
+    public function getTypesAllowed()
     {
         return [];
     }
 
     /**
-     * @param non-empty-string $package
+     * @param string $package
+     * @return false
      */
-    public function isRegistered(string $package): bool
+    public function isRegistered($package)
     {
         return false;
     }
@@ -39,7 +40,7 @@ final class NoopInjector implements InjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function inject(string $package, int $type): bool
+    public function inject($package, $type)
     {
         return false;
     }
@@ -47,7 +48,7 @@ final class NoopInjector implements InjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function remove(string $package): bool
+    public function remove($package)
     {
         return false;
     }
@@ -55,7 +56,7 @@ final class NoopInjector implements InjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function setApplicationModules(array $modules): self
+    public function setApplicationModules(array $modules)
     {
         return $this;
     }
@@ -63,7 +64,7 @@ final class NoopInjector implements InjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function setModuleDependencies(array $modules): self
+    public function setModuleDependencies(array $modules)
     {
         return $this;
     }

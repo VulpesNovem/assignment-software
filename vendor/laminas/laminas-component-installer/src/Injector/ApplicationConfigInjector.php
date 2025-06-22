@@ -1,59 +1,60 @@
 <?php
 
-declare(strict_types=1);
+/**
+ * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
+ */
 
 namespace Laminas\ComponentInstaller\Injector;
 
-/**
- * @internal
- */
-final class ApplicationConfigInjector extends AbstractInjector
+class ApplicationConfigInjector extends AbstractInjector
 {
-    /** @var non-empty-string */
-    protected string $configFile = 'config/application.config.php';
+    /**
+     * Configuration file to update.
+     *
+     * @var string
+     */
+    protected $configFile = 'config/application.config.php';
 
     /**
      * Patterns and replacements to use when registering a code item.
      *
-     * @var array<
-     *     InjectorInterface::TYPE_*,
-     *     array{pattern: non-empty-string, replacement: string}
-     * >
+     * @var string[]
      */
-    protected array $injectionPatterns = [
-        self::TYPE_COMPONENT          => [
-            'pattern'     => '/^(\s+)(\'modules\'\s*\=\>\s*(?:array\s*\(|\[))\s*$/m',
+    protected $injectionPatterns = [
+        self::TYPE_COMPONENT => [
+            'pattern' => '/^(\s+)(\'modules\'\s*\=\>\s*(?:array\s*\(|\[))\s*$/m',
             'replacement' => "\$1\$2\n\$1    '%s',",
         ],
-        self::TYPE_MODULE             => [
-            'pattern'     => "/('modules'\s*\=\>\s*(?:array\s*\(|\[).*?)\n(\s+)(\)|\])/s",
+        self::TYPE_MODULE => [
+            'pattern' => "/('modules'\s*\=\>\s*(?:array\s*\(|\[).*?)\n(\s+)(\)|\])/s",
             'replacement' => "\$1\n\$2    '%s',\n\$2\$3",
         ],
-        self::TYPE_DEPENDENCY         => [
-            'pattern'     => '/^(\s+)(\'modules\'\s*\=\>\s*(?:array\s*\(|\[)[^)\]]*\'%s\')/m',
+        self::TYPE_DEPENDENCY => [
+            'pattern' => '/^(\s+)(\'modules\'\s*\=\>\s*(?:array\s*\(|\[)[^)\]]*\'%s\')/m',
             'replacement' => "\$1\$2,\n\$1    '%s'",
         ],
         self::TYPE_BEFORE_APPLICATION => [
-            'pattern'     => '/^(\s+)(\'modules\'\s*\=\>\s*(?:array\s*\(|\[)[^)\]]*)(\'%s\')/m',
+            'pattern' => '/^(\s+)(\'modules\'\s*\=\>\s*(?:array\s*\(|\[)[^)\]]*)(\'%s\')/m',
             'replacement' => "\$1\$2'%s',\n$1    \$3",
         ],
     ];
 
-    /** @var non-empty-string */
-    protected string $isRegisteredPattern = '/\'modules\'\s*\=\>\s*(?:array\(|\[)[^)\]]*\'%s\'/s';
-
-    /** @var array{pattern: non-empty-string, replacement: string} */
-    protected array $removalPatterns = [
-        'pattern'     => '/^\s+\'%s\',\s*$/m',
-        'replacement' => '',
-    ];
+    /**
+     * Pattern to use to determine if the code item is registered.
+     *
+     * @var string
+     */
+    protected $isRegisteredPattern = '/\'modules\'\s*\=\>\s*(?:array\(|\[)[^)\]]*\'%s\'/s';
 
     /**
-     * @param non-empty-string|null $configFile
+     * Patterns and replacements to use when removing a code item.
+     *
+     * @var string[]
      */
-    public function __construct(string $projectRoot = '', ?string $configFile = null)
-    {
-        $this->configFile = $configFile ?? $this->configFile;
-        parent::__construct($projectRoot);
-    }
+    protected $removalPatterns = [
+        'pattern' => '/^\s+\'%s\',\s*$/m',
+        'replacement' => '',
+    ];
 }

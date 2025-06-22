@@ -1,52 +1,65 @@
 <?php
 
-declare(strict_types=1);
+/**
+ * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
+ */
 
 namespace Laminas\ComponentInstaller;
 
+use ArrayAccess;
 use ArrayIterator;
 use Countable;
+use InvalidArgumentException;
 use IteratorAggregate;
 use OutOfRangeException;
+use Traversable;
 
-use function array_filter;
-use function array_key_exists;
-use function array_merge;
-use function array_search;
-use function array_unique;
-use function array_values;
-use function count;
-use function gettype;
-use function is_scalar;
-use function sprintf;
-
-use const ARRAY_FILTER_USE_BOTH;
-
-/**
- * @internal
- *
- * @template TKey of array-key
- * @template TValue
- *
- * @implements IteratorAggregate<TKey, TValue>
- */
-final class Collection implements
+class Collection implements
+    ArrayAccess,
     Countable,
     IteratorAggregate
 {
     /**
-     * @param array<TKey,TValue> $items
+     * @param array
      */
-    public function __construct(protected array $items)
+    protected $items;
+
+    /**
+     * @param array|Traversable $items
+     * @throws InvalidArgumentException
+     */
+    public function __construct($items)
     {
+        if ($items instanceof Traversable) {
+            $items = iterator_to_array($items);
+        }
+
+        if (! is_array($items)) {
+            throw new InvalidArgumentException('Collections require arrays or Traversable objects');
+        }
+
+        $this->items = $items;
+    }
+
+    /**
+     * Factory method
+     *
+     * @param array|Traversable
+     * @return static
+     */
+    public static function create($items)
+    {
+        return new static($items);
     }
 
     /**
      * Cast collection to an array.
      *
-     * @return array<TKey,TValue>
+     * @return array
      */
-    public function toArray(): array
+    public function toArray()
     {
         return $this->items;
     }
@@ -54,10 +67,10 @@ final class Collection implements
     /**
      * Apply a callback to each item in the collection.
      *
-     * @param callable(TValue,TKey):void $callback
-     * @return self<TKey,TValue>
+     * @param callable $callback
+     * @return self
      */
-    public function each(callable $callback): self
+    public function each(callable $callback)
     {
         foreach ($this->items as $key => $item) {
             $callback($item, $key);
@@ -66,18 +79,39 @@ final class Collection implements
     }
 
     /**
+     * Reduce the collection to a single value.
+     *
+     * @param callable $callback
+     * @param mixed $initial Initial value.
+     * @return mixed
+     */
+    public function reduce(callable $callback, $initial = null)
+    {
+        $accumulator = $initial;
+
+        foreach ($this->items as $key => $item) {
+            $accumulator = $callback($accumulator, $item, $key);
+        }
+
+        return $accumulator;
+    }
+
+    /**
      * Filter the collection using a callback.
      *
      * Filter callback should return true for values to keep.
      *
-     * @param callable(TValue,TKey):bool $callback
-     * @return self<TKey,TValue>
+     * @param callable $callback
+     * @return static
      */
-    public function filter(callable $callback): self
+    public function filter(callable $callback)
     {
-        $filtered = array_filter($this->items, $callback, ARRAY_FILTER_USE_BOTH);
-
-        return new self($filtered);
+        return $this->reduce(function ($filtered, $item, $key) use ($callback) {
+            if ($callback($item, $key)) {
+                $filtered[$key] = $item;
+            }
+            return $filtered;
+        }, new static([]));
     }
 
     /**
@@ -85,18 +119,17 @@ final class Collection implements
      *
      * Filter callback should return true for values to reject.
      *
-     * @param callable(TValue,TKey):bool $callback
-     * @return self<TKey,TValue>
+     * @param callable $callback
+     * @return static
      */
-    public function reject(callable $callback): self
+    public function reject(callable $callback)
     {
-        /** @psalm-suppress MixedArgument Psalm is not able to infer the type from the static callable (yet). */
-        $filtered = array_filter(
-            $this->items,
-            static fn ($value, $key) => ! $callback($value, $key),
-            ARRAY_FILTER_USE_BOTH
-        );
-        return new self($filtered);
+        return $this->reduce(function ($filtered, $item, $key) use ($callback) {
+            if (! $callback($item, $key)) {
+                $filtered[$key] = $item;
+            }
+            return $filtered;
+        }, new static([]));
     }
 
     /**
@@ -104,47 +137,72 @@ final class Collection implements
      *
      * Callback should return the new value to use.
      *
-     * @template     TNewValue
-     * @psalm-param  callable(TValue,TKey):TNewValue $callback
-     * @psalm-return self<TKey,TNewValue>
+     * @param callable $callback
+     * @return static
      */
-    public function map(callable $callback): self
+    public function map(callable $callback)
     {
-        $mapped = [];
-        foreach ($this->items as $key => $value) {
-            $mapped[$key] = $callback($value, $key);
-        }
-
-        return new self($mapped);
+        return $this->reduce(function ($results, $item, $key) use ($callback) {
+            $results[$key] = $callback($item, $key);
+            return $results;
+        }, new static([]));
     }
 
     /**
      * Return a new collection containing only unique items.
      *
-     * @return self<TKey,TValue>
-     * @psalm-immutable
+     * @return static
      */
-    public function unique(): self
+    public function unique()
     {
-        return new self(array_unique($this->items));
+        return new static(array_unique($this->items));
     }
 
     /**
-     * @param TKey $offset
+     * Merge an array of values with the current collection.
+     *
+     * @param array $values
+     * @return Collection
      */
-    public function has($offset): bool
+    public function merge(array $values)
+    {
+        $this->items = array_merge($this->items, $values);
+        return $this;
+    }
+
+    /**
+     * Prepend a value to the collection.
+     *
+     * @param mixed $value
+     * @return Collection
+     */
+    public function prepend($value)
+    {
+        array_unshift($this->items, $value);
+        return $this;
+    }
+
+    /**
+     * ArrayAccess: isset()
+     *
+     * @param string|int $offset
+     * @return bool
+     */
+    public function offsetExists($offset)
     {
         return array_key_exists($offset, $this->items);
     }
 
     /**
-     * @param TKey $offset
-     * @return TValue
+     * ArrayAccess: retrieve by key
+     *
+     * @param string|int $offset
+     * @return mixed
      * @throws OutOfRangeException
      */
-    public function get($offset)
+    public function offsetGet($offset)
     {
-        if (! $this->has($offset)) {
+        if (! $this->offsetExists($offset)) {
             throw new OutOfRangeException(sprintf(
                 'Offset %s does not exist in the collection',
                 $offset
@@ -155,85 +213,64 @@ final class Collection implements
     }
 
     /**
-     * @param TKey $offset
-     * @param TValue $value
+     * ArrayAccess: set by key
+     *
+     * If $offset is null, pushes the item onto the stack.
+     *
+     * @param string|int $offset
+     * @param mixed $value
+     * @return void
      */
-    public function set($offset, $value): void
+    public function offsetSet($offset, $value)
     {
+        if (null === $offset) {
+            $this->items[] = $value;
+            return;
+        }
+
         $this->items[$offset] = $value;
     }
 
     /**
-     * Countable: number of items in the collection.
+     * ArrayAccess: unset()
+     *
+     * @param string|int $offset
+     * @return void
      */
-    public function count(): int
+    public function offsetUnset($offset)
+    {
+        if ($this->offsetExists($offset)) {
+            unset($this->items[$offset]);
+        }
+    }
+
+    /**
+     * Countable: number of items in the collection.
+     *
+     * @return int
+     */
+    public function count()
     {
         return count($this->items);
     }
 
-    public function isEmpty(): bool
+    /**
+     * Is the collection empty?
+     *
+     * @return bool
+     */
+    public function isEmpty()
     {
-        return $this->items === [];
+        return 0 === $this->count();
     }
 
     /**
      * Traversable: Iterate the collection.
      *
-     * @return ArrayIterator<TKey,TValue>
+     * @return ArrayIterator
      */
-    public function getIterator(): ArrayIterator
+    public function getIterator()
     {
         return new ArrayIterator($this->items);
-    }
-
-    /**
-     * @param callable(TValue,TKey):bool $callback
-     */
-    public function anySatisfies(callable $callback): bool
-    {
-        foreach ($this->items as $index => $item) {
-            if ($callback($item, $index)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * @return self<int<0, max>, TValue>
-     */
-    public function toOrderedCollection(): self
-    {
-        return new self(array_values($this->items));
-    }
-
-    /**
-     * @param self<TKey,TValue> $collection
-     * @return self<TKey,TValue>
-     */
-    public function merge(Collection $collection): self
-    {
-        $this->items = array_merge($this->items, $collection->toArray());
-
-        return $this;
-    }
-
-    /**
-     * @param TValue $value
-     * @return TKey
-     * @throws OutOfRangeException
-     */
-    public function getKey($value)
-    {
-        $key = array_search($value, $this->items, true);
-        if ($key === false) {
-            throw new OutOfRangeException(sprintf(
-                'Value %s does not exist in the collection',
-                is_scalar($value) ? (string) $value : gettype($value)
-            ));
-        }
-
-        return $key;
     }
 }

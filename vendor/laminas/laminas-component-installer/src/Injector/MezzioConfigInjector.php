@@ -1,63 +1,72 @@
 <?php
 
-declare(strict_types=1);
+/**
+ * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
+ */
 
 namespace Laminas\ComponentInstaller\Injector;
 
-use Laminas\ComponentInstaller\ConfigDiscovery\DiscoveryInterface;
 use Laminas\ComponentInstaller\ConfigDiscovery\MezzioConfig as MezzioConfigDiscovery;
 
-use function preg_quote;
-use function sprintf;
-
-/**
- * @internal
- */
-final class MezzioConfigInjector extends AbstractInjector
+class MezzioConfigInjector extends AbstractInjector
 {
     use ConditionalDiscoveryTrait;
 
-    public const DEFAULT_CONFIG_FILE = 'config/config.php';
+    const DEFAULT_CONFIG_FILE = 'config/config.php';
 
-    /** @var list<InjectorInterface::TYPE_*> */
-    protected array $allowedTypes = [
+    /**
+     * {@inheritDoc}
+     */
+    protected $allowedTypes = [
         self::TYPE_CONFIG_PROVIDER,
     ];
 
-    /** @var non-empty-string */
-    protected string $configFile = self::DEFAULT_CONFIG_FILE;
+    /**
+     * Configuration file to update.
+     *
+     * @var string
+     */
+    protected $configFile = self::DEFAULT_CONFIG_FILE;
 
     /**
      * Discovery class, for testing if this injector is valid for the given
      * configuration.
      *
-     * @var class-string<DiscoveryInterface>
+     * @var string
      */
-    protected string $discoveryClass = MezzioConfigDiscovery::class;
+    protected $discoveryClass = MezzioConfigDiscovery::class;
 
     /**
      * Patterns and replacements to use when registering a code item.
      *
      * Pattern is set in constructor due to PCRE quoting issues.
      *
-     * @var array<
-     *     InjectorInterface::TYPE_*,
-     *     array{pattern: non-empty-string, replacement: string}
-     * >
+     * @var string[]
      */
-    protected array $injectionPatterns = [];
+    protected $injectionPatterns = [
+        self::TYPE_CONFIG_PROVIDER => [
+            'pattern'     => '',
+            'replacement' => "\$1\n    %s::class,",
+        ],
+    ];
 
     /**
      * Pattern to use to determine if the code item is registered.
      *
      * Set in constructor due to PCRE quoting issues.
      *
-     * @var non-empty-string
+     * @var string
      */
-    protected string $isRegisteredPattern = 'overridden-by-constructor';
+    protected $isRegisteredPattern = '';
 
-    /** @var array{pattern: non-empty-string, replacement: string} */
-    protected array $removalPatterns = [
+    /**
+     * Patterns and replacements to use when removing a code item.
+     *
+     * @var string[]
+     */
+    protected $removalPatterns = [
         'pattern'     => '/^\s+%s::class,\s*$/m',
         'replacement' => '',
     ];
@@ -68,7 +77,7 @@ final class MezzioConfigInjector extends AbstractInjector
      * Sets $isRegisteredPattern and pattern for $injectionPatterns to ensure
      * proper PCRE quoting.
      */
-    public function __construct(string $projectRoot = '')
+    public function __construct($projectRoot = '')
     {
         $this->isRegisteredPattern = '/new (?:'
             . preg_quote('\\')
@@ -76,25 +85,12 @@ final class MezzioConfigInjector extends AbstractInjector
             . preg_quote('Mezzio\ConfigManager\\')
             . ')?ConfigManager\(\s*(?:array\(|\[).*\s+%s::class/s';
 
-        $this->injectionPatterns[self::TYPE_CONFIG_PROVIDER] = [
-            'pattern'     => sprintf(
-                '/(new (?:%s?%s)?ConfigManager\(\s*(?:array\(|\[)\s*)$/m',
-                preg_quote('\\'),
-                preg_quote('Mezzio\ConfigManager\\')
-            ),
-            'replacement' => "\$1\n    %s::class,",
-        ];
+        $this->injectionPatterns[self::TYPE_CONFIG_PROVIDER]['pattern'] = sprintf(
+            '/(new (?:%s?%s)?ConfigManager\(\s*(?:array\(|\[)\s*)$/m',
+            preg_quote('\\'),
+            preg_quote('Mezzio\ConfigManager\\')
+        );
 
         parent::__construct($projectRoot);
-    }
-
-    protected function getDefaultConfigFile(): string
-    {
-        return self::DEFAULT_CONFIG_FILE;
-    }
-
-    protected function getDiscoveryClass(): string
-    {
-        return $this->discoveryClass;
     }
 }

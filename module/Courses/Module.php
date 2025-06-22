@@ -1,8 +1,7 @@
 <?php
-
-declare(strict_types=1);
-
 namespace Courses;
+
+use Laminas\Loader\StandardAutoloader;
 
 class Module
 {
@@ -11,11 +10,12 @@ class Module
         return include __DIR__ . '/config/module.config.php';
     }
 
-    public function getAutoloaderConfig()
+    public function getAutoloaderConfig(): array
     {
         return [
-            'Laminas\Loader\StandardAutoloader' => [
+            StandardAutoloader::class => [
                 'namespaces' => [
+                    // PSR-0/4 mapping: Courses\... → module/Courses/src/Courses/...
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ],
             ],

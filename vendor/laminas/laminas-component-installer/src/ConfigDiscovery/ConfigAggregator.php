@@ -1,36 +1,33 @@
-<?php // phpcs:disable Squiz.Functions.MultiLineFunctionDeclaration.Indent,SlevomatCodingStandard.TypeHints.DeclareStrictTypes.IncorrectWhitespaceBeforeDeclare
+<?php
 
-declare(strict_types=1);
+/**
+ * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
+ */
 
 namespace Laminas\ComponentInstaller\ConfigDiscovery;
 
-use function preg_quote;
-use function sprintf;
-
-/**
- * @internal
- */
-final class ConfigAggregator extends AbstractDiscovery
+class ConfigAggregator extends AbstractDiscovery
 {
+    /**
+     * Configuration file to look for.
+     *
+     * @var string
+     */
+    protected $configFile = 'config/config.php';
+
     /**
      * Expected pattern to match if the configuration file exists.
      *
      * Pattern is set in constructor to ensure PCRE quoting is correct.
      *
-     * @var non-empty-string
+     * @var string
      */
-    protected string $expected;
+    protected $expected = '';
 
-    /**
-     * @param non-empty-string $configFile
-     */
-    public function __construct(
-        string $projectDirectory = '',
-        /**
-         * Configuration file to look for.
-         */
-        protected string $configFile = 'config/config.php'
-    ) {
+    public function __construct($projectDirectory = '')
+    {
         $this->expected = sprintf(
             '/new (?:%s?%s)?ConfigAggregator\(\s*(?:array\(|\[)/s',
             preg_quote('\\'),

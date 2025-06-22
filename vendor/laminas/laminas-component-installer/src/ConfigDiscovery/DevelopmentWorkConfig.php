@@ -1,25 +1,19 @@
 <?php
 
-declare(strict_types=1);
+/**
+ * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
+ */
 
 namespace Laminas\ComponentInstaller\ConfigDiscovery;
 
-/**
- * @internal
- */
-final class DevelopmentWorkConfig implements DiscoveryInterface
+class DevelopmentWorkConfig extends ApplicationConfig
 {
-    private const CONFIG_FILE = 'config/development.config.php';
-
-    private readonly DiscoveryInterface $applicationDiscovery;
-
-    public function __construct(string $projectDirectory = '')
-    {
-        $this->applicationDiscovery = new ApplicationConfig($projectDirectory, self::CONFIG_FILE);
-    }
-
-    public function locate(): bool
-    {
-        return $this->applicationDiscovery->locate();
-    }
+    /**
+     * Configuration file to look for.
+     *
+     * @var string
+     */
+    protected $configFile = 'config/development.config.php';
 }

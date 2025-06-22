@@ -1,34 +1,26 @@
 <?php
 
-declare(strict_types=1);
+/**
+ * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
+ */
 
 namespace Laminas\ComponentInstaller\ConfigDiscovery;
 
-/**
- * @internal
- */
-final class ApplicationConfig extends AbstractDiscovery
+class ApplicationConfig extends AbstractDiscovery
 {
     /**
      * Configuration file to look for.
      *
-     * @var non-empty-string
+     * @var string
      */
-    protected string $configFile = 'config/application.config.php';
+    protected $configFile = 'config/application.config.php';
 
     /**
      * Expected pattern to match if the configuration file exists.
      *
-     * @var non-empty-string
+     * @var string
      */
-    protected string $expected = '/^(\s+)(\'modules\'\s*\=\>\s*(array\(|\[))\s*$/m';
-
-    /**
-     * @param non-empty-string|null $configFile
-     */
-    public function __construct(string $projectDirectory = '', ?string $configFile = null)
-    {
-        $this->configFile = $configFile ?? $this->configFile;
-        parent::__construct($projectDirectory);
-    }
+    protected $expected = '/^(\s+)(\'modules\'\s*\=\>\s*(array\(|\[))\s*$/m';
 }

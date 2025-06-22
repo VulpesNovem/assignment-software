@@ -1,73 +1,81 @@
 <?php
 
-declare(strict_types=1);
+/**
+ * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
+ */
 
 namespace Laminas\ComponentInstaller\Injector;
 
 use Laminas\ComponentInstaller\Exception;
 
 /**
- * @internal
- *
  * @todo add getConfigFile() method in 2.0
  */
 interface InjectorInterface
 {
-    public const TYPE_CONFIG_PROVIDER    = 0;
-    public const TYPE_COMPONENT          = 1;
-    public const TYPE_MODULE             = 2;
-    public const TYPE_DEPENDENCY         = 3;
-    public const TYPE_BEFORE_APPLICATION = 4;
+    const TYPE_CONFIG_PROVIDER = 0;
+    const TYPE_COMPONENT = 1;
+    const TYPE_MODULE = 2;
+    const TYPE_DEPENDENCY = 3;
+    const TYPE_BEFORE_APPLICATION = 4;
 
     /**
      * Whether or not the injector can handle the given type.
      *
-     * @param InjectorInterface::TYPE_* $type
+     * @param int $type One of the TYPE_* constants.
+     * @return bool
      */
-    public function registersType(int $type): bool;
+    public function registersType($type);
 
     /**
      * Return a list of types the injector handles.
      *
-     * @return list<InjectorInterface::TYPE_*>
+     * @return int[]
      */
-    public function getTypesAllowed(): array;
+    public function getTypesAllowed();
 
     /**
      * Is a given package already registered?
      *
-     * @param non-empty-string $package
+     * @param string $package
+     * @return bool
      */
-    public function isRegistered(string $package): bool;
+    public function isRegistered($package);
 
     /**
      * Register a package with the configuration.
      *
-     * @param non-empty-string $package Package to inject into configuration.
-     * @param InjectorInterface::TYPE_* $type
+     * @param string $package Package to inject into configuration.
+     * @param int $type One of the TYPE_* constants.
+     * @return bool
      * @throws Exception\RuntimeException
      */
-    public function inject(string $package, int $type): bool;
+    public function inject($package, $type);
 
     /**
      * Remove a package from the configuration.
      *
-     * @param non-empty-string $package Package to remove.
+     * @param string $package Package to remove.
+     * @return bool
      * @throws Exception\RuntimeException
      */
-    public function remove(string $package): bool;
+    public function remove($package);
 
     /**
      * Set modules of the application.
      *
-     * @param list<non-empty-string> $modules
+     * @param array $modules
+     * @return self
      */
-    public function setApplicationModules(array $modules): self;
+    public function setApplicationModules(array $modules);
 
     /**
-     * Create an injector for  dependencies for the module.
+     * Set dependencies for the module.
      *
-     * @param list<non-empty-string> $modules
+     * @param array $modules
+     * @return self
      */
-    public function setModuleDependencies(array $modules): self;
+    public function setModuleDependencies(array $modules);
 }
