@@ -4,5 +4,5 @@
     <span class="navbar_divider"></span>
     <a class="nav-item nav-link float-left" href="/"><i class="bi bi-calendar-event-fill"></i> &nbsp Calendar</a>
     <span class="navbar_divider"></span>
-    <a class="nav-item nav-link float-left" href="/"><i class="bi bi-book-half"></i> &nbsp Classes</a>
+    <a class="nav-item nav-link float-left" href="/courses"><i class="bi bi-book-half"></i> &nbsp Courses</a>
 </nav>
