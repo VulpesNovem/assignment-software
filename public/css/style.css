@@ -20,6 +20,15 @@
     padding-right: 12.5%;
 }
 
+.navbar-toggler {
+    color: var(--primary_text) !important;
+    border: none;
+}
+
+.navbar-toggler-icon {
+    color: var(--primary_text) !important;
+}
+
 .nav-item {
     margin-top: 5px;
     margin-bottom: 5px;
@@ -54,8 +63,61 @@ footer{
     color: var(--primary_text);
 }
 
-.card-header{
+.card-header {
     background-color: var(--primary_light);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
+.course_card {
+    height: 35vh;
+}
 
+.course_card .card-header {
+    min-height: 40px;
+    height: 15%;
+    background-color: var(--primary_light);
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.course_card .card-body {
+}
+
+.course_card .card-footer {
+    min-height: 40px;
+    height: 35%;
+    background-color: var(--primary_light);
+
+    white-space: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.course_card a {
+    text-decoration: none;
+}
+
+.dropdown {
+    /*color: var(--primary_text);*/
+    /*background-color: var(--primary);*/
+    position: relative;
+    z-index: 1000; /* optional for stacking issues */
+}
+
+.btn {
+    color: var(--primary_text);
+    background-color: var(--primary);
+}
+
+.dropdown-menu {
+    color: var(--primary_text);
+    background-color: var(--primary);
+    padding: 10px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary_text);
+}

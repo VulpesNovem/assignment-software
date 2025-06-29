@@ -15,7 +15,7 @@ use Laminas\Authentication\Adapter\AbstractAdapter;
 
 class CoursesController extends AbstractActionController
 {
-
+    protected $params;
 
     public function __construct(AbstractAdapter $configurations = null)
     {
@@ -37,4 +37,17 @@ class CoursesController extends AbstractActionController
         return new ViewModel();
     }
 
+    public function ajaxAction()
+    {
+        $this->layout()->setTemplate('layout/ajax');
+        $this->params = $this->params()->fromRoute();
+        return new ViewModel(array('params'=>$this->params));
+    }
+
+    public function detailsAction()
+    {
+        $this->layout()->setTemplate('layout/ajax');
+        $this->params = $this->params()->fromRoute();
+        return new ViewModel(array('params'=>$this->params));
+    }
 }

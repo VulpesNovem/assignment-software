@@ -13,12 +13,9 @@
     </head>
 
     <body>
-        <nav class="navbar" role="navigation" style="height: 5rem"><div class="container"><?php include_once 'inc/navbar.php';?></div></nav>
-        <div class="container">
-            <?= $this->content ?>
-
-            <footer class="fixed-bottom">Ooga Booga</footer>
-        </div>
+        <header><nav class="navbar" role="navigation" style="height: 5rem"><div class="container"><?php include_once 'inc/navbar.php';?></div></nav></header>
+        <div class="container"><?= $this->content ?></div>
+        <footer>Ooga Booga</footer>
         <?= $this->inlineScript()
             ->prependFile($this->basePath('js/bootstrap.min.js')) ?>
     </body>

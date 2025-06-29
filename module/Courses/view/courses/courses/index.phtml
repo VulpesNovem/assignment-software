@@ -1,3 +1,26 @@
-<h1>Hello World!</h1>
+<?php
+use Courses\Semesters;
 
-<?php include_once 'details/show.course.details.php';?>
+$semesters = new Semesters();
+$allsemesters = $semesters->getAll();
+$currentsemester = $semesters->getCurrentSemester();
+?>
+
+<select id="semesterSelect" class="float-right">
+    <?php foreach ($allsemesters as $semester) { ?>
+        <option value="<?= $semester['SemesterID']; ?>" <?= $semester['SemesterID'] == $currentsemester ? 'selected' : '' ?>><?= $semester['SemesterName']; ?></option>
+    <?php } ?>
+</select>
+
+<div id="courseList" class="row mb-3"></div>
+
+<script>
+    $(document).ready(function() {
+        let initialSemester = $('#semesterSelect').val();
+        loadCourses(initialSemester);
+        $('#semesterSelect').change(function() {
+            let selectedSemester = $(this).val();
+            loadCourses(selectedSemester);
+        });
+    });
+</script>
