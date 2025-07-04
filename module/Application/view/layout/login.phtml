@@ -1,0 +1,28 @@
+<?= $this->doctype() ?>
+
+<html lang="en">
+<head>
+    <title>Solutient C2 System</title>
+    <?= $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
+
+    <?php include_once 'inc/css.php';?>
+    <?php include_once 'inc/js.php';?>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+
+    </div>
+</nav>
+<div class="container">
+    <?= $this->content ?>
+    <hr>
+    <footer>
+    </footer>
+</div>
+<?= $this->inlineScript() ?>
+</body>
+</html>

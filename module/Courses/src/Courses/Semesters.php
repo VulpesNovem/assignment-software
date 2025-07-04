@@ -44,5 +44,6 @@ class Semesters
                 return $semester['SemesterID'];
             }
         }
+        return null;
     }
 }

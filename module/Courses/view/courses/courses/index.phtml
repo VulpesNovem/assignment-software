@@ -6,7 +6,8 @@ $allsemesters = $semesters->getAll();
 $currentsemester = $semesters->getCurrentSemester();
 ?>
 
-<select id="semesterSelect" class="float-right">
+<a class="btn float-end" href="/"><i class="bi bi-plus"></i> New Course</a>
+<select id="semesterSelect">
     <?php foreach ($allsemesters as $semester) { ?>
         <option value="<?= $semester['SemesterID']; ?>" <?= $semester['SemesterID'] == $currentsemester ? 'selected' : '' ?>><?= $semester['SemesterName']; ?></option>
     <?php } ?>

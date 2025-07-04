@@ -7,6 +7,7 @@
 
 namespace Courses\Controller;
 
+use Courses\Courses;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 use Laminas\Session\Container;
@@ -26,7 +27,11 @@ class CoursesController extends AbstractActionController
 
     public function onDispatch(\Laminas\Mvc\MvcEvent $e)
     {
+        $session = new Container('Session_Name');
 
+        if(!isset($session['User'])) {
+            return $this->redirect()->toRoute('login');
+        }
 
         return parent::onDispatch($e);
     }
@@ -46,8 +51,14 @@ class CoursesController extends AbstractActionController
 
     public function detailsAction()
     {
-        $this->layout()->setTemplate('layout/ajax');
-        $this->params = $this->params()->fromRoute();
-        return new ViewModel(array('params'=>$this->params));
+        $courses = new Courses();
+        $id = $this->params()->fromRoute('id');
+        $coursedetails = $courses->getDetails($id);
+
+        if(!empty($coursedetails)) {
+            return new ViewModel(array('coursedetails' => $coursedetails));
+        } else {
+            return $this->redirect()->toRoute('courses');
+        }
     }
 }

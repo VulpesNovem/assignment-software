@@ -13,49 +13,49 @@ $courselist = $courses->getAll();
 <h1 style="text-align: center" class="mb-3 mt-3"><?=$semestershown[0]['SemesterName']?></h1>
 
 <?php
-foreach ($courselist as $course) {
-    if ($course['SemesterID'] == $semesterid) {
-        $dropdownId = 'iconDropdown' . $course['CourseID']; // unique ID for each course
-        ?>
-        <div class="col-xl-4 col-m-6 col-sm-12 mb-3">
-            <div class="card course_card">
-                <div class="card-header" style="overflow: visible">
-                    <div class="dropdown float-end">
-                        <button class="btn btn-link p-0 border-0" type="button" id="<?=$dropdownId?>" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-three-dots-vertical"></i>
-                        </button>
-                        <form class="color-update-form" data-course-id="<?=$course['CourseID']?>">
-                            <ul class="dropdown-menu" aria-labelledby="<?=$dropdownId?>">
-                                <li>
-                                    <label for="hexColor<?=$course['CourseID']?>">Card Color:&nbsp;</label>
-                                    #<input type="text"
-                                            id="hexColor<?=$course['CourseID']?>"
-                                            name="hexColor"
-                                            maxlength="6"
-                                            oninput="this.value = this.value.replace(/[^a-fA-F0-9]/g, '').slice(0, 6)"
-                                            value="<?=$course['CardColor']?>"
-                                            required>
-                                </li>
-                                <li>
-                                    <button type="submit">Save Color</button>
-                                </li>
-                            </ul>
-                        </form>
+if (!empty($courselist)) {
+    foreach ($courselist as $course) {
+        if ($course['SemesterID'] == $semesterid) {
+            $dropdownId = 'iconDropdown' . $course['CourseID']; // unique ID for each course
+            ?>
+            <div class="col-xl-4 col-m-6 col-sm-12 mb-3">
+                <div class="card course_card">
+                    <div class="card-header" style="overflow: visible">
+                        <div class="dropdown float-end">
+                            <button class="btn btn-link p-0 border-0" type="button" id="<?=$dropdownId?>" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <form class="color-update-form" data-course-id="<?=$course['CourseID']?>">
+                                <ul class="dropdown-menu" aria-labelledby="<?=$dropdownId?>">
+                                    <li>
+                                        <label for="hexColor<?=$course['CourseID']?>">Card Color:&nbsp;</label>
+                                        #<input type="text"
+                                                id="hexColor<?=$course['CourseID']?>"
+                                                name="hexColor"
+                                                maxlength="6"
+                                                oninput="this.value = this.value.replace(/[^a-fA-F0-9]/g, '').slice(0, 6)"
+                                                value="<?=$course['CardColor']?>"
+                                                required>
+                                    </li>
+                                    <li>
+                                        <button type="submit">Save Color</button>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                        <a href="/courses/details/<?=$course['CourseID']?>" style="overflow: hidden;">
+                            <h5><?=$course['DisciplineCode'];?> <?=$course['CourseNumber'];?> - <?=sprintf('%03d', $course['SectionNumber']);?></h5>
+                        </a>
                     </div>
-                    <a href="https://www.youtube.com" style="overflow: hidden;">
-                        <h5><?=$course['DisciplineCode'];?> <?=$course['CourseNumber'];?> - <?=sprintf('%03d', $course['SectionNumber']);?></h5>
+                    <a class="card-body" id="cardBody<?=$course['CourseID']?>" href="/courses/details/<?=$course['CourseID']?>" style="background-color:#<?=$course['CardColor']?>"></a>
+                    <a class="card-footer" href="/courses/details/<?=$course['CourseID']?>">
+                        <h5><?=$course['CourseName'];?></h5>
                     </a>
                 </div>
-                <a class="card-body" id="cardBody<?=$course['CourseID']?>" href="https://www.youtube.com" style="background-color:#<?=$course['CardColor']?>"></a>
-                <a class="card-footer" href="https://www.youtube.com">
-                    <h5><?=$course['CourseName'];?></h5>
-                </a>
             </div>
-        </div>
-        <?php
-    }
-}
-?>
+            <?php
+        }
+}}?>
 
 <script>
     $(document).ready(function () {

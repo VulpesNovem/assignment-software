@@ -1,0 +1,8 @@
+<?php
+$coursedetails = $this->coursedetails[0];
+?>
+
+<div class="row course_details_header mb-3" style="background-color: #<?=$coursedetails['CardColor']?>;"></div>
+
+<h1><?=$coursedetails['CourseName']?></h1>
+<h3><?=$coursedetails['DisciplineCode']?> <?=$coursedetails['CourseNumber']?> - <?=sprintf('%03d', $coursedetails['SectionNumber']);?></h3>
