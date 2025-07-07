@@ -6,13 +6,18 @@ $allsemesters = $semesters->getAll();
 $currentsemester = $semesters->getCurrentSemester();
 ?>
 
-<a class="btn float-end" href="/"><i class="bi bi-plus"></i> New Course</a>
-<select id="semesterSelect">
-    <?php foreach ($allsemesters as $semester) { ?>
-        <option value="<?= $semester['SemesterID']; ?>" <?= $semester['SemesterID'] == $currentsemester ? 'selected' : '' ?>><?= $semester['SemesterName']; ?></option>
-    <?php } ?>
-</select>
-
+<div class="row">
+    <div class="col-auto me-auto">
+        <select id="semesterSelect">
+            <?php foreach ($allsemesters as $semester) { ?>
+                <option value="<?= $semester['SemesterID']; ?>" <?= $semester['SemesterID'] == $currentsemester ? 'selected' : '' ?>><?= $semester['SemesterName']; ?></option>
+            <?php } ?>
+        </select>
+    </div>
+    <div class="col-auto ms-auto">
+        <a class="btn" onclick="addNewCourse()"><i class="bi bi-plus"></i> New Course</a>
+    </div>
+</div>
 <div id="courseList" class="row mb-3"></div>
 
 <script>

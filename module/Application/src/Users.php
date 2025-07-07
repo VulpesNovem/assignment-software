@@ -33,11 +33,11 @@ class Users
 
     public function validate($data)
     {
-        $this->select->from($this->_name)->columns(array('EmployeeID'));
+        $this->select->from($this->_name)->columns(array('UserID'));
         $where = new Where();
-        $where->equalTo('Email', $data['Email'])->equalTo('Password', md5($data['Password']))->equalTo('user.Active', '1');
+        $where->equalTo('Email', $data['Email'])->equalTo('Password', md5($data['Password']))->equalTo('users.Active', '1');
         $result = $this->_db->selectWith($this->select->where($where))->current();
-        if (empty($result['EmployeeID'])) {
+        if (empty($result['UserID'])) {
             return false;
         } else {
             return $this->getDetails($result['UserID']);

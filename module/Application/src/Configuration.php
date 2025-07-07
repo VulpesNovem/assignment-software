@@ -34,4 +34,14 @@ class Configuration
         }
         return $list;
     }
+
+    public function getValue($code=""){
+
+        $rowset = $this->_db->select(array('ConfigurationKey' => $code));
+        $result = $rowset->current();
+        if (!$result) {return;}
+        return $result['ConfigurationValue'];
+
+
+    }
 }

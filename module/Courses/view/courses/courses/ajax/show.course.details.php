@@ -7,7 +7,7 @@ $semesterid = $_GET['SemesterID'];
 $semestershown = $semesters->getDetails($semesterid);
 
 $courses = new Courses();
-$courselist = $courses->getAll();
+$courselist = $courses->getAllByUserID($_SESSION['AssignmentSession']['User'][0]['UserID']);
 ?>
 
 <h1 style="text-align: center" class="mb-3 mt-3"><?=$semestershown[0]['SemesterName']?></h1>
@@ -25,23 +25,24 @@ if (!empty($courselist)) {
                             <button class="btn btn-link p-0 border-0" type="button" id="<?=$dropdownId?>" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-three-dots-vertical"></i>
                             </button>
-                            <form class="color-update-form" data-course-id="<?=$course['CourseID']?>">
-                                <ul class="dropdown-menu" aria-labelledby="<?=$dropdownId?>">
-                                    <li>
-                                        <label for="hexColor<?=$course['CourseID']?>">Card Color:&nbsp;</label>
-                                        #<input type="text"
-                                                id="hexColor<?=$course['CourseID']?>"
-                                                name="hexColor"
-                                                maxlength="6"
-                                                oninput="this.value = this.value.replace(/[^a-fA-F0-9]/g, '').slice(0, 6)"
-                                                value="<?=$course['CardColor']?>"
-                                                required>
-                                    </li>
-                                    <li>
-                                        <button type="submit">Save Color</button>
-                                    </li>
-                                </ul>
-                            </form>
+                            <ul class="dropdown-menu" aria-labelledby="<?=$dropdownId?>">
+                                <li>
+                                    <form class="color-update-form px-3" data-course-id="<?=$course['CourseID']?>">
+                                        <div class="mb-2">
+                                            <label for="hexColor<?=$course['CourseID']?>">Card Color:&nbsp;</label>
+                                            #<input type="text"
+                                                    id="hexColor<?=$course['CourseID']?>"
+                                                    name="hexColor"
+                                                    maxlength="6"
+                                                    oninput="this.value = this.value.replace(/[^a-fA-F0-9]/g, '').slice(0, 6)"
+                                                    value="<?=$course['CardColor']?>"
+                                                    required
+                                                    class="form-control form-control-sm d-inline-block w-auto">
+                                        </div>
+                                        <button type="submit" class="btn btn-sm btn-primary">Save Color</button>
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
                         <a href="/courses/details/<?=$course['CourseID']?>" style="overflow: hidden;">
                             <h5><?=$course['DisciplineCode'];?> <?=$course['CourseNumber'];?> - <?=sprintf('%03d', $course['SectionNumber']);?></h5>

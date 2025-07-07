@@ -11,37 +11,33 @@ use Courses\Courses;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 use Laminas\Session\Container;
-use Laminas\Authentication\Adapter\AbstractAdapter;
 
 
 class CoursesController extends AbstractActionController
 {
     protected $params;
 
-    public function __construct(AbstractAdapter $configurations = null)
-    {
-
-        return;
-    }
-
-
+    //When the controller loads
     public function onDispatch(\Laminas\Mvc\MvcEvent $e)
     {
-        $session = new Container('Session_Name');
+        //Create a container in session
+        $container = new Container('AssignmentSession');
 
-        if(!isset($session['User'])) {
+        //If a container in session is not tied to a user, redirect login
+        if(!isset($_SESSION['AssignmentSession']['User'])) {
             return $this->redirect()->toRoute('login');
         }
 
         return parent::onDispatch($e);
     }
 
-
+    //Index page action
     public function indexAction()
     {
         return new ViewModel();
     }
 
+    //Ajax file action
     public function ajaxAction()
     {
         $this->layout()->setTemplate('layout/ajax');
@@ -49,6 +45,7 @@ class CoursesController extends AbstractActionController
         return new ViewModel(array('params'=>$this->params));
     }
 
+    //Detail page actions
     public function detailsAction()
     {
         $courses = new Courses();

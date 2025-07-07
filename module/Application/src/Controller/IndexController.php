@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Application\Controller;
@@ -11,16 +10,21 @@ use Laminas\View\Model\ViewModel;
 class IndexController extends AbstractActionController
 {
 
+    //When the controller loads
     public function onDispatch(\Laminas\Mvc\MvcEvent $e)
     {
-        $session = new Container('Session_Name');
+        //Create a container in session
+        $container = new Container('AssignmentSession');
 
-        if(!isset($session['User'])) {
-        //    return $this->redirect()->toRoute('login');
+        //If a container in session is not tied to a user, redirect login
+        if(!isset($_SESSION['AssignmentSession']['User'])) {
+            return $this->redirect()->toRoute('login');
         }
 
         return parent::onDispatch($e);
     }
+
+    //Main index action
     public function indexAction()
     {
         return new ViewModel();
