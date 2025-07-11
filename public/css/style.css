@@ -1,8 +1,8 @@
 :root {
-    --primary: rgb(16, 43, 16);
-    --primary_dark: rgb(12, 25, 12);
-    --primary_light: rgb(27, 53, 27);
-    --primary_text: rgb(18, 218, 18);
+    --primary: rgb(32, 32, 32);
+    --primary_dark: rgb(27, 27, 27);
+    --primary_light: rgb(129, 42, 42);
+    --primary_text: rgb(255, 255, 255);
 }
 
 .container {

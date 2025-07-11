@@ -1,0 +1,50 @@
+:root {
+    --primary: rgb(143, 39, 122);
+    --primary-dark: rgb(67, 40, 62);
+    --primary-light: rgb(181, 83, 166);
+
+    --secondary: rgb(25, 24, 24);
+    --secondary-dark: rgb(225, 225, 225);
+    --secondary-light: rgb(255, 255, 255);
+
+    --primary-text: rgb(255, 255, 255);
+}
+
+body {
+    background-color: var(--primary-dark);
+}
+
+body * {
+    color: var(--primary-text);
+    font-family: Tahoma, sans-serif;
+}
+
+.card {
+    background-color: var(--secondary);
+    width: 325px;
+}
+
+.logo-circle {
+    border-radius: 50%;
+    background-color: var(--primary);
+    width: 75px;
+    height: 75px;
+}
+
+.logo {
+    color: var(--primary-text);
+    margin: 10px;
+    font-size: 35px;
+}
+
+.form-control {
+    font-size: 8pt;
+    font-family: Tahoma, sans-serif;
+}
+
+.login-btn {
+    background-color: var(--primary);
+    font-size: 25pt;
+    aspect-ratio: 1/1;
+    padding: 8px;
+}
