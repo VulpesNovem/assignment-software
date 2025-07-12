@@ -141,16 +141,17 @@ a {
 
 .dropdown-menu {
     background-color: var(--primary);
+    color: var(--primary-text);
     padding: 10px;
 }
 
 .dropdown-item {
-    color: var(--secondary-text);
+    /*color: var(--secondary-text);*/
 }
 
 .dropdown-item:hover {
     background-color: var(--primary-light);
-    color: var(--secondary-text);
+    color: var(--primary-text);
 }
 
 h1, h2, h3, h4, h5, h6 {

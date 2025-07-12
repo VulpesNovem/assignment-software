@@ -21,12 +21,12 @@ class Themes
         return $this->_db;
     }
 
-    public function getDetails($themeeid)
+    public function getDetails($themeid)
     {
-        if (!empty($courseid)) {
+        if (!empty($themeid)) {
             $this->select->from($this->_name);
             $where = new Where();
-            $where->equalTo('ThemeID', $themeeid);
+            $where->equalTo('ThemeID', $themeid);
             return $this->_db->selectWith($this->select->where($where))->toArray();
         }
         return false;

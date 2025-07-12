@@ -3,22 +3,34 @@
 <html lang="en">
     <head>
         <title>Assignment Tracker</title>
-        <?= $this->headMeta()
-            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
-        ?>
+        <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0')->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
 
-        <?php include_once 'inc/assets.php';?>
-<!--        --><?php //include_once 'inc/css.php'; ?>
-<!--        --><?php //include_once 'inc/js.php'; ?>
-        <link rel="stylesheet" href="/css/style.css"/>
+        Use Settings\Themes;
+        Use Application\Users;
+
+        $userdetails = (new Users)->getDetails($_SESSION['AssignmentSession']['User'][0]['UserID'])[0];
+        $themedetails = (new Themes())->getDetails($userdetails['ThemeID'])[0];
+
+        include_once 'inc/assets.php';?>
+        <link rel="stylesheet" href="/css/themes/<?= $themedetails['ThemeSheet'] ?>.css"/>
 
     </head>
     <body>
-        <header><nav class="navbar" role="navigation" style="min-height: 10vh"><div class="container"><?php include_once 'inc/navbar.php';?></div></nav></header>
-        <div class="container" style="min-height: 85vh"><?= $this->content ?></div>
+        <header>
+            <nav class="navbar" role="navigation" style="min-height: 10vh">
+                <div class="container">
+                    <?php include_once 'inc/navbar.php';?>
+                </div>
+            </nav>
+        </header>
+
+        <div class="container" style="min-height: 85vh">
+            <?= $this->content ?>
+        </div>
+
         <footer style="min-height: 5vh">Ooga Booga</footer>
-        <?php include_once 'inc/modal.php';?>
-        <?= $this->inlineScript() ?>
+
+        <?php include_once 'inc/modal.php';
+        echo $this->inlineScript(); ?>
     </body>
 </html>
