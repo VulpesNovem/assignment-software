@@ -1,8 +1,11 @@
 :root {
-    --primary: rgb(32, 32, 32);
-    --primary_dark: rgb(27, 27, 27);
-    --primary_light: rgb(129, 42, 42);
-    --primary_text: rgb(255, 255, 255);
+    --primary: rgb(255, 255, 255);
+    --primary_dark: rgb(241, 241, 241);
+    --primary_light: rgb(177, 76, 76);
+
+    --primary_text: rgb(0, 0, 0);
+
+    --logout-link: rgb(168, 39, 39);
 }
 
 .container {
@@ -124,4 +127,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .course_details_header {
     height: 25vh;
+}
+
+.account-dropdown :hover {
+    cursor: pointer;
 }

@@ -12,5 +12,6 @@ return [
     'Laminas\Validator',
     'Application',
     'Courses',
-    'Login'
+    'Login',
+    'Settings',
 ];
