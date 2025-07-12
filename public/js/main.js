@@ -33,3 +33,10 @@ function updateCourse (formid) {
         location.reload();
     });
 }
+
+function updateUser (formid) {
+    var data = $('#' + formid).serialize();
+    $.post('/settings/ajax/update.user',data,function(response){}).done(function(response){
+        location.reload();
+    });
+}
