@@ -1,12 +1,12 @@
 :root {
-    --primary: rgb(27, 27, 27);
-    --primary-dark: rgb(18, 18, 18);
-    --primary-light: rgb(73, 73, 73);
+    --primary: rgb(237, 237, 237);
+    --primary-dark: rgb(213, 213, 213);
+    --primary-light: rgb(255, 255, 255);
 
     --secondary: rgb(143, 39, 122);
     --secondary-light: rgb(174, 60, 151);
 
-    --primary-text: rgb(255, 255, 255);
+    --primary-text: rgb(0, 0, 0);
 
     --secondary-text: rgb(255, 255, 255);
 

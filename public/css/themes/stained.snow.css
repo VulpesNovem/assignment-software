@@ -1,0 +1,172 @@
+:root {
+    --primary: rgb(237, 237, 237);
+    --primary-dark: rgb(213, 213, 213);
+    --primary-light: rgb(255, 255, 255);
+
+    --secondary: rgb(145, 54, 54);
+    --secondary-light: rgb(163, 65, 65);
+
+    --primary-text: rgb(0, 0, 0);
+
+    --secondary-text: rgb(255, 255, 255);
+
+    --logout-link: rgb(168, 39, 39);
+}
+
+.container {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.navbar_bar {
+    color: var(--secondary-text);
+    background-color: var(--secondary);
+    padding-left: 12.5%;
+    padding-right: 12.5%;
+}
+
+.navbar-toggler {
+    color: var(--primary-text) !important;
+    border: none;
+}
+
+.navbar-toggler-icon {
+    color: var(--primary-text) !important;
+}
+
+.nav-item {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.navbar_divider {
+    width: 1px;
+    height: 2em;
+    background-color: var(--secondary-text);
+    margin: 0 2rem;
+}
+
+body{
+    background-color: var(--primary-dark);
+    color: var(--primary-text);
+}
+
+footer{
+    text-align: center;
+    color: var(--secondary-text);
+    background-color: var(--secondary);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 12.5%;
+    padding-right: 12.5%;
+}
+
+
+.card {
+    border: none;
+    background-color: var(--primary);
+    color: var(--primary-text);
+}
+
+.card-header {
+    background-color: var(--secondary);
+    color: var(--secondary-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-footer {
+    background-color: var(--secondary);
+    color: var(--secondary-text);
+}
+
+.course_card {
+    height: 35vh;
+}
+
+.course_card * {
+    color: var(--secondary-text);
+}
+
+.course_card .card-header {
+    min-height: 40px;
+    height: 15%;
+    background-color: var(--secondary);
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.course_card .card-body {
+}
+
+.course_card .card-footer {
+    min-height: 40px;
+    height: 35%;
+
+    white-space: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+a {
+    text-decoration: none;
+}
+
+.dropdown {
+    /*color: var(--primary-text);*/
+    /*background-color: var(--primary);*/
+    position: relative;
+    z-index: 1000; /* optional for stacking issues */
+}
+
+.btn {
+    /*color: var(--primary-text);*/
+    /*background-color: var(--primary);*/
+}
+
+.btn-primary {
+    color: var(--secondary-text);
+    background-color: var(--secondary);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-light);
+}
+
+.dropdown-menu {
+    background-color: var(--primary);
+    padding: 10px;
+}
+
+.dropdown-item {
+    color: var(--secondary-text);
+}
+
+.dropdown-item:hover {
+    background-color: var(--primary-light);
+    color: var(--secondary-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    /*color: var(--primary-text);*/
+    /*text-decoration: none;*/
+}
+
+.course_details_header {
+    height: 25vh;
+}
+
+.account-dropdown:hover {
+    cursor: pointer;
+}
+
+.divider {
+    margin: 20px 0;
+    border-top: 1px solid var(--primary-text);
+}
