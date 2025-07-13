@@ -1,6 +1,8 @@
 <?php
 
-namespace Settings;
+namespace Account;
+
+use Application\Logs;
 
 use Application\ConfigurationTableGateway;
 use Laminas\Db\Sql\Select;
@@ -13,11 +15,13 @@ class Themes
     protected $_order = array('ThemeID' => 'ASC');
     protected $select;
     protected $_db;
+    protected $_log;
 
     public function __construct()
     {
         $this->_db = new ConfigurationTableGateway($this->_name);
         $this->select = new Select();
+        $this->_log = new Logs;
         return $this->_db;
     }
 

@@ -2,22 +2,22 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Settings\Controller\Settings' => 'Settings\Controller\SettingsController',
+            'Account\Controller\Account' => 'Account\Controller\AccountController',
         ),
     ),
     // The following section is new and should be added to your file
     'router' => array(
         'routes' => array(
-            'settings' => array(
+            'account' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/settings[/][:action][/][:id][/]',
+                    'route'    => '/account[/][:action][/][:id][/]',
                     'constraints' => array(
 //                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 //                        'id'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
-                        'controller' => 'Settings\Controller\Settings',
+                        'controller' => 'Account\Controller\Account',
                         'action'     => 'index',
                     ),
                 ),
@@ -26,7 +26,7 @@ return array(
     ),
     'view_manager' => array(
         'template_path_stack' => array(
-            'Settings' => __DIR__ . '/../view',
+            'Account' => __DIR__ . '/../view',
         ),
     ),
 );

@@ -5,8 +5,8 @@
         <title>Assignment Tracker</title>
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0')->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
 
-        Use Settings\Themes;
-        Use Application\Users;
+        use Account\Themes;
+        use Account\Users;
 
         $userdetails = (new Users)->getDetails($_SESSION['AssignmentSession']['User'][0]['UserID'])[0];
         $themedetails = (new Themes())->getDetails($userdetails['ThemeID'])[0];

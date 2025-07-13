@@ -1,7 +1,9 @@
 <?php
 
-namespace Application;
+namespace Account;
 
+use Application\ConfigurationTableGateway;
+use Application\Logs;
 use Laminas\Db\Sql\Select;
 use Laminas\Db\Sql\Where;
 
@@ -12,26 +14,25 @@ class Users
     protected $_order = array('UserID' => 'ASC');
     protected $select;
     protected $_db;
+    protected $_log;
 
     public function __construct()
     {
         $this->_db = new ConfigurationTableGateway($this->_name);
         $this->select = new Select();
+        $this->_log = new Logs;
         return $this->_db;
     }
 
     public function input($input) {
         $data = array();
-        if(isset($input['UserID'])) { $data['UserID'] = trim($input['UserID']); }
         if(isset($input['FirstName'])) { $data['FirstName'] = trim($input['FirstName']); }
         if(isset($input['LastName'])) { $data['LastName'] = trim($input['LastName']); }
         if(isset($input['Email'])) { $data['Email'] = trim($input['Email']); }
         if(isset($input['Password'])) { $data['Password'] = md5($input['Password']); }
         if(isset($input['ThemeID'])) { $data['ThemeID'] = trim($input['ThemeID']); }
 
-//        die(print_r($data));
         if (isset($input[$this->_id])) {
-            //If the inputted data has a CourseID
             $this->update($input[$this->_id], $data);
             return $input[$this->_id];
         } else {
@@ -43,16 +44,22 @@ class Users
     private function insert($data) {
         $data['EntryDate'] = date('Y-m-d');
         $data['ThemeID'] = '1';
-        return $this->_db->insert($data);
+
+        $this->_log->logInsertItem($this->_name, $data);
+
+        $this->_db->insert($data);
     }
 
-    private function update($courseid, $data) {
-        $this->_db->update($data, array($this->_id => $courseid));
-        return;
+    private function update($userid, $data) {
+        $this->_log->logUpdateItem($this->_name, $userid, $data);
+
+        $this->_db->update($data, array($this->_id => $userid));
     }
 
-    private function delete($courseid) {
-        $this->_db->delete(array($this->_id => $courseid));
+    private function delete($userid) {
+        $this->_log->logDeleteItem($this->_name, $userid, $this->getDetails($userid));
+
+        $this->_db->delete(array($this->_id => $userid));
     }
 
     public function getDetails($userid) {

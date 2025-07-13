@@ -1,5 +1,5 @@
 <?php
-namespace Settings;
+namespace Account;
 
 use Laminas\Loader\StandardAutoloader;
 

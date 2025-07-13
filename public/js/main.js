@@ -36,7 +36,7 @@ function updateCourse (formid) {
 
 function updateUser (formid) {
     var data = $('#' + formid).serialize();
-    $.post('/settings/ajax/update.user',data,function(response){}).done(function(response){
+    $.post('/account/ajax/update.user',data,function(response){}).done(function(response){
         location.reload();
     });
 }

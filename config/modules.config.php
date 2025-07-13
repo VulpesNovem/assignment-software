@@ -13,5 +13,5 @@ return [
     'Application',
     'Courses',
     'Login',
-    'Settings',
+    'Account',
 ];

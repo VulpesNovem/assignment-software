@@ -5,15 +5,14 @@
  * @license   http://framework.laminas.com/license/new-bsd New BSD License
  */
 
-namespace Settings\Controller;
+namespace Account\Controller;
 
-use Courses\Courses;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 use Laminas\Session\Container;
 
 
-class SettingsController extends AbstractActionController
+class AccountController extends AbstractActionController
 {
     protected $params;
 

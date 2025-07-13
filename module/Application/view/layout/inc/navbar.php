@@ -13,7 +13,7 @@
             <div class="dropdown-button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><i class="bi bi-person-circle"></i></div>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href=""><i class="bi bi-exclamation-lg"></i> Action</a></li>
-                <li><a class="dropdown-item" href="/settings"><i class="bi bi-gear-wide-connected"></i> Settings</a></li>
+                <li><a class="dropdown-item" href="/account"><i class="bi bi-gear-wide-connected"></i> Settings</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/logout" style="color: var(--logout-link)"><i class="bi bi-door-open-fill"></i> Logout</a></li>
             </ul>

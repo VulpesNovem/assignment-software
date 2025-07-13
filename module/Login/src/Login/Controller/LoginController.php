@@ -2,19 +2,21 @@
 
 namespace Login\Controller;
 
-use Application\Users;
-use Laminas\Mvc\Controller\AbstractActionController;
-use Laminas\View\Model\ViewModel;
-use Laminas\Session\Container;
+use Account\Users;
+use Application\Logs;
 use Laminas\Authentication\Adapter\AbstractAdapter;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Session\Container;
+use Laminas\View\Model\ViewModel;
 
 
 class LoginController extends AbstractActionController
 {
     protected $params;
+    protected $_log;
 
-    public function __construct(AbstractAdapter $configurations = null)
-    {
+    public function __construct(AbstractAdapter $configurations = null) {
+        $this->_log = new Logs;
     }
 
     public function onDispatch(\Laminas\Mvc\MvcEvent $e)
@@ -32,6 +34,9 @@ class LoginController extends AbstractActionController
             if(!empty($validate)){
                 $_SESSION['AssignmentSession'] = array();
                 $_SESSION['AssignmentSession']['User'] = $validate;
+
+                $this->_log->logLogin($validate[0]['UserID'], $validate[0]);
+
                 $this->redirect()->toRoute('home');
             }
         }

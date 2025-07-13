@@ -1,10 +1,10 @@
 <?php
 
-use Application\Users;
-use Settings\Themes;
+use Account\Themes;
+use Account\Users;
 
 $userdetails = (new Users)->getDetails($_SESSION['AssignmentSession']['User'][0]['UserID'])[0];
-$themelist = (new Themes())->getAll();
+$themelist = (new Themes)->getAll();
 ?>
 
 <div class="row mb-3">
