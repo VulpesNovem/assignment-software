@@ -1,5 +1,4 @@
-<?php
-use Courses\Courses;
+<?php use Courses\Courses;
 use Courses\Semesters;
 
 $semesters = new Semesters();
@@ -8,82 +7,52 @@ $semestershown = $semesters->getDetails($semesterid);
 
 $courses = new Courses();
 $courselist = $courses->getAllByUserID($_SESSION['AssignmentSession']['User'][0]['UserID']);
-?>
+
+$semestercourses = [];
+foreach ($courselist as $course) {
+    if ($course['SemesterID'] == $semesterid) {
+        $semestercourses[] = $course;
+    }
+} ?>
 
 <h1 style="text-align: center" class="mb-3 mt-3"><?=$semestershown[0]['SemesterName']?></h1>
 
 <?php
-if (!empty($courselist)) {
-    foreach ($courselist as $course) {
-        if ($course['SemesterID'] == $semesterid) {
-            $dropdownId = 'iconDropdown' . $course['CourseID']; // unique ID for each course
-            ?>
-            <div class="col-xl-4 col-m-6 col-sm-12 mb-3">
-                <div class="card course_card">
-                    <div class="card-header" style="overflow: visible">
-                        <div class="dropdown float-end">
-                            <a class="dropdown-button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <form class="color-update-form px-3" data-course-id="<?=$course['CourseID']?>">
-                                        <div class="mb-2">
-                                            <label for="hexColor<?=$course['CourseID']?>">Card Color:&nbsp;</label>
-                                            <i class="bi bi-hash"></i>
-                                            <input type="text" id="hexColor<?=$course['CourseID']?>" name="hexColor" maxlength="6" oninput="this.value = this.value.replace(/[^a-fA-F0-9]/g, '').slice(0, 6)" value="<?=$course['CardColor']?>" required class="form-control form-control-sm d-inline-block w-auto">
+if (!empty($semestercourses)) {
+    foreach ($semestercourses as $course) {?>
+        <div class="col-xl-4 col-m-6 col-sm-12 mb-3">
+            <div class="card course_card">
+                <div class="card-header" style="overflow: visible">
+                    <div class="dropdown float-end">
+                        <a class="dropdown-button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <form id="CourseCard<?=$course['CourseID']?>" class="p-1" onsubmit="updateCourse('CourseCard<?=$course['CourseID']?>'); return false;">
+                                    <input type="hidden" name="CourseID" value="<?=$course['CourseID']?>">
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <label>Card Color:&nbsp;</label>
                                         </div>
-                                        <button type="submit" class="btn btn-sm btn-primary">Save Color</button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
-                        <a href="/courses/details/<?=$course['CourseID']?>" style="overflow: hidden;">
-                            <h5><?=$course['DisciplineCode'];?> <?=$course['CourseNumber'];?> - <?=sprintf('%03d', $course['SectionNumber']);?></h5>
-                        </a>
+                                        <div class="col">
+                                            <input required type="color" name="CardColor" value="#<?=$course['CardColor']?>">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-sm btn-primary">Save Color</button>
+                                </form>
+                            </li>
+                        </ul>
                     </div>
-                    <a class="card-body" id="cardBody<?=$course['CourseID']?>" href="/courses/details/<?=$course['CourseID']?>" style="background-color:#<?=$course['CardColor']?>"></a>
-                    <a class="card-footer" href="/courses/details/<?=$course['CourseID']?>">
-                        <h5><?=$course['CourseName'];?></h5>
+                    <a href="/courses/details/<?=$course['CourseID']?>" style="overflow: hidden;">
+                        <h5><?=$course['DisciplineCode'];?> <?=$course['CourseNumber'];?> - <?=sprintf('%03d', $course['SectionNumber']);?></h5>
                     </a>
                 </div>
+                <a class="card-body" id="cardBody<?=$course['CourseID']?>" href="/courses/details/<?=$course['CourseID']?>" style="background-color:#<?=$course['CardColor']?>"></a>
+                <a class="card-footer" href="/courses/details/<?=$course['CourseID']?>">
+                    <h5><?=$course['CourseName'];?></h5>
+                </a>
             </div>
-            <?php
-        }
-}}?>
-
-<script>
-    $(document).ready(function () {
-        $('.color-update-form').on('submit', function (e) {
-            e.preventDefault();
-
-            const form = $(this);
-            const courseId = form.data('course-id');
-            const color = form.find('input[name="hexColor"]').val();
-
-            // Validate hex
-            if (!/^[a-fA-F0-9]{6}$/.test(color)) {
-                alert("Please enter a valid 6-digit hex color.");
-                return;
-            }
-
-            $.ajax({
-                url: '/courses/ajax/update.card.color',
-                type: 'POST',
-                data: {
-                    course: courseId,
-                    hexColor: color
-                },
-                success: function (response) {
-                    if (response === 'success') {
-                        // Update card background
-                        $('#cardBody' + courseId).css('background-color', '#' + color);
-                    } else {
-                        alert("Update failed: " + response);
-                    }
-                },
-                error: function () {
-                    alert("AJAX error while saving.");
-                }
-            });
-        });
-    });
-</script>
+        </div>
+    <?php }
+} else {
+    echo '<h3>No courses found.</h3>';
+} ?>

@@ -1,3 +1,28 @@
+body{
+    background-color: var(--primary-dark);
+    color: var(--primary-text);
+}
+
+footer{
+    text-align: center;
+    color: var(--secondary-text);
+    background-color: var(--secondary);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 12.5%;
+    padding-right: 12.5%;
+}
+
+a {
+    color: var(--secondary-text);
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    /*color: var(--primary-text);*/
+    /*text-decoration: none;*/
+}
+
 .container {
     max-width: 100%;
     margin-left: 0;
@@ -34,22 +59,6 @@
     margin: 0 2rem;
 }
 
-body{
-    background-color: var(--primary-dark);
-    color: var(--primary-text);
-}
-
-footer{
-    text-align: center;
-    color: var(--secondary-text);
-    background-color: var(--secondary);
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 12.5%;
-    padding-right: 12.5%;
-}
-
-
 .card {
     border: none;
     background-color: var(--primary);
@@ -74,16 +83,18 @@ footer{
 }
 
 .course_card * {
-    color: var(--secondary-text);
+
 }
 
 .course_card .card-header {
     min-height: 40px;
     height: 15%;
     background-color: var(--secondary);
+    color: var(--secondary-text);
 
     white-space: nowrap;
     text-overflow: ellipsis;
+
 }
 
 .course_card .card-body {
@@ -92,14 +103,11 @@ footer{
 .course_card .card-footer {
     min-height: 40px;
     height: 35%;
+    color: var(--secondary-text);
 
     white-space: wrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-a {
-    text-decoration: none;
 }
 
 .dropdown {
@@ -143,26 +151,11 @@ a {
     background-color: var(--secondary-light);
 }
 
-h1, h2, h3, h4, h5, h6 {
-    /*color: var(--primary-text);*/
-    /*text-decoration: none;*/
-}
-
 .course_details_header {
     height: 25vh;
 }
 
-
 .divider {
     margin: 20px 0;
     border-top: 1px solid var(--primary-text);
-}
-
-.form-control {
-    background-color: var(--primary);
-    color: var(--secondary);
-}
-
-.form-control:focus {
-    background-color: var(--primary-light);
 }

@@ -28,8 +28,10 @@ class Courses
         if(isset($input['CourseNumber'])) { $data['CourseNumber'] = trim($input['CourseNumber']); }
         if(isset($input['SectionNumber'])) { $data['SectionNumber'] = trim($input['SectionNumber']); }
         if(isset($input['SemesterID'])) { $data['SemesterID'] = trim($input['SemesterID']); }
+        if (isset($input['CardColor'])) { $data['CardColor'] = ltrim($input['CardColor'], '#'); }
 
-//        die(print_r($data));
+        echo "<script>console.log(" . json_encode($data) . ");</script>";
+
         if(isset($input[$this->_id])){
             //If the inputted data has a CourseID
             $this->update($input[$this->_id], $data);
@@ -43,7 +45,7 @@ class Courses
     private function insert($data) {
         $data['UserID'] = $_SESSION['AssignmentSession']['User'][0]['UserID'];
         $data['EntryDate'] = date('Y-m-d');
-        $data['CardColor'] = '#000000';
+        $data['CardColor'] = '000000';
         return $this->_db->insert($data);
     }
 
