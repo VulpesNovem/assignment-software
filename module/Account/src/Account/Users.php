@@ -42,7 +42,7 @@ class Users
     }
 
     private function insert($data) {
-        $data['EntryDate'] = date('Y-m-d');
+        $data['EntryDate'] = date('Y-m-d H:i:s');
         $data['ThemeID'] = '1';
 
         $this->_log->logInsertItem($this->_name, $data);

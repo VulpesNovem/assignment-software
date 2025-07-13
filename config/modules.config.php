@@ -14,4 +14,5 @@ return [
     'Courses',
     'Login',
     'Account',
+    'Assignments',
 ];

@@ -46,7 +46,7 @@ class Courses
 
     private function insert($data) {
         $data['UserID'] = $_SESSION['AssignmentSession']['User'][0]['UserID'];
-        $data['EntryDate'] = date('Y-m-d');
+        $data['EntryDate'] = date('Y-m-d H:i:s');
         $data['CardColor'] = '000000';
 
         $this->_log->logInsertItem($this->_name, $data);
@@ -87,8 +87,5 @@ class Courses
             return $this->_db->selectWith($this->select->where($where))->toArray();
         }
         return false;
-    }
-    public function updateCardColor($courseid, $data) {
-        $this->_db->update($data, array($this->_id => $courseid));
     }
 }
