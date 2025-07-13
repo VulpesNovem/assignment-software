@@ -22,22 +22,14 @@ if (!empty($courselist)) {
                 <div class="card course_card">
                     <div class="card-header" style="overflow: visible">
                         <div class="dropdown float-end">
-                            <button class="btn btn-link p-0 border-0" type="button" id="<?=$dropdownId?>" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="<?=$dropdownId?>">
+                            <a class="dropdown-button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></a>
+                            <ul class="dropdown-menu">
                                 <li>
                                     <form class="color-update-form px-3" data-course-id="<?=$course['CourseID']?>">
                                         <div class="mb-2">
                                             <label for="hexColor<?=$course['CourseID']?>">Card Color:&nbsp;</label>
-                                            #<input type="text"
-                                                    id="hexColor<?=$course['CourseID']?>"
-                                                    name="hexColor"
-                                                    maxlength="6"
-                                                    oninput="this.value = this.value.replace(/[^a-fA-F0-9]/g, '').slice(0, 6)"
-                                                    value="<?=$course['CardColor']?>"
-                                                    required
-                                                    class="form-control form-control-sm d-inline-block w-auto">
+                                            <i class="bi bi-hash"></i>
+                                            <input type="text" id="hexColor<?=$course['CourseID']?>" name="hexColor" maxlength="6" oninput="this.value = this.value.replace(/[^a-fA-F0-9]/g, '').slice(0, 6)" value="<?=$course['CardColor']?>" required class="form-control form-control-sm d-inline-block w-auto">
                                         </div>
                                         <button type="submit" class="btn btn-sm btn-primary">Save Color</button>
                                     </form>

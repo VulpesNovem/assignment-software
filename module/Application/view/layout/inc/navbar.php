@@ -1,4 +1,3 @@
-<?php ?>
 <nav class="navbar navbar-dark fixed-top fs-5 navbar-expand-sm navbar_bar">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#Navbar">
         <span class="navbar-toggler-icon"></span>
@@ -11,7 +10,7 @@
         <span class="navbar_divider d-none d-md-block"></span>
         <a class="nav-item nav-link" href="/courses"><i class="bi bi-book-half"></i> &nbsp Courses</a>
         <div class="dropdown ms-auto">
-            <div class="account-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><i class="bi bi-person-circle"></i></div>
+            <div class="dropdown-button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><i class="bi bi-person-circle"></i></div>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href=""><i class="bi bi-exclamation-lg"></i> Action</a></li>
                 <li><a class="dropdown-item" href="/settings"><i class="bi bi-gear-wide-connected"></i> Settings</a></li>

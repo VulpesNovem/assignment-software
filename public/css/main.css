@@ -109,19 +109,8 @@ a {
     z-index: 1000; /* optional for stacking issues */
 }
 
-.btn {
-    /*color: var(--primary-text);*/
-    /*background-color: var(--primary);*/
-}
-
-.btn-primary {
-    color: var(--secondary-text);
-    background-color: var(--secondary);
-    border: none;
-}
-
-.btn-primary:hover {
-    background-color: var(--secondary-light);
+.dropdown-button:hover {
+    cursor: pointer;
 }
 
 .dropdown-menu {
@@ -139,6 +128,21 @@ a {
     color: var(--primary-text);
 }
 
+.btn {
+    /*color: var(--primary-text);*/
+    /*background-color: var(--primary);*/
+}
+
+.btn-primary {
+    color: var(--secondary-text);
+    background-color: var(--secondary);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-light);
+}
+
 h1, h2, h3, h4, h5, h6 {
     /*color: var(--primary-text);*/
     /*text-decoration: none;*/
@@ -148,11 +152,17 @@ h1, h2, h3, h4, h5, h6 {
     height: 25vh;
 }
 
-.account-dropdown:hover {
-    cursor: pointer;
-}
 
 .divider {
     margin: 20px 0;
     border-top: 1px solid var(--primary-text);
+}
+
+.form-control {
+    background-color: var(--primary);
+    color: var(--secondary);
+}
+
+.form-control:focus {
+    background-color: var(--primary-light);
 }
