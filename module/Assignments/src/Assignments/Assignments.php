@@ -89,4 +89,24 @@ class Assignments
         }
         return false;
     }
+
+    public function getPastByCourseID($courseid) {
+        if(!empty($courseid)) {
+            $this->select->from('assignments_past');
+            $where = new Where();
+            $where->equalTo('CourseID', $courseid);
+            return $this->_db->selectWith($this->select->where($where))->toArray();
+        }
+        return false;
+    }
+
+    public function getUpcomingByCourseID($courseid) {
+        if(!empty($courseid)) {
+            $this->select->from('assignments_upcoming');
+            $where = new Where();
+            $where->equalTo('CourseID', $courseid);
+            return $this->_db->selectWith($this->select->where($where))->toArray();
+        }
+        return false;
+    }
 }

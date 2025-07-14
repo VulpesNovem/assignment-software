@@ -4,5 +4,15 @@ $coursedetails = $this->coursedetails[0];
 
 <div class="row course_details_header mb-3" style="background-color: #<?=$coursedetails['CardColor']?>;"></div>
 
-<h1><?=$coursedetails['CourseName']?></h1>
-<h3><?=$coursedetails['DisciplineCode']?> <?=$coursedetails['CourseNumber']?> - <?=sprintf('%03d', $coursedetails['SectionNumber']);?></h3>
+<div class="row">
+    <div class="col">
+        <h1><?=$coursedetails['CourseName']?></h1>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col">
+        <h3><?=$coursedetails['DisciplineCode']?> <?=$coursedetails['CourseNumber']?> - <?=sprintf('%03d', $coursedetails['SectionNumber']);?></h3>
+    </div>
+</div>
+
+<?php include_once $_SERVER['DOCUMENT_ROOT'].'/module/Assignments/view/assignments/assignments/ajax/course.assignments.list.php'; ?>

@@ -39,7 +39,7 @@ $semesterlist = $semesters->getAll();
         <div class="col-6"><input required class="form-control" type="number" max="999" name="SectionNumber" placeholder="Section Number"></div>
     </div>
 
-    <div class="row mb-1">
+    <div class="row mb-3">
         <div class="col-6"><label>Semester</label></div>
         <div class="col-6">
             <select required class="form-select" name="SemesterID">
@@ -51,5 +51,9 @@ $semesterlist = $semesters->getAll();
         </div>
     </div>
 
-    <div class="row mb-1"><button type="submit" class="btn btn-primary" onclick="$(this).hide()">Submit</button></div>
+    <div class="row mb-1">
+        <div class="col-auto mx-auto">
+            <button type="submit" class="btn btn-primary" onclick="$(this).hide()"><i class="bi bi-plus"></i> Course</button>
+        </div>
+    </div>
 </form>

@@ -59,6 +59,30 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 2rem;
 }
 
+.modal-content {
+    border: none;
+    background-color: var(--primary);
+    color: var(--primary-text);
+}
+
+.modal-header {
+    border: none;
+    background-color: var(--secondary);
+    color: var(--secondary-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.modal-body {
+}
+
+.modal-footer {
+    border: none;
+    background-color: var(--secondary);
+    color: var(--secondary-text);
+}
+
 .card {
     border: none;
     background-color: var(--primary);
@@ -158,4 +182,10 @@ h1, h2, h3, h4, h5, h6 {
 .divider {
     margin: 20px 0;
     border-top: 1px solid var(--primary-text);
+}
+
+.assignment_date_row, .assignment_name_row {
+    border-left: rgba(0, 0, 0, 0.35) 1px solid;
+    border-right: rgba(0, 0, 0, 0.35) 1px solid;
+    border-bottom: rgba(0, 0, 0, 0.35) 1px solid;
 }
