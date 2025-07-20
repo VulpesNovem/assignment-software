@@ -21,17 +21,48 @@ function loadCourses (semesterid) {
     })
 }
 
+function updateCourse (formid) {
+    var data = $('#' + formid).serialize();
+    $.post('/courses/ajax/update.course',data,function(response){}).done(function(response){
+        location.reload();
+    });
+}
+
+function editCourse (courseid) {
+    $.get('/courses/ajax/edit.current.course',{CourseID: courseid},function(response){}).done(function(response){
+        showModal('Edit Course',response);
+    });
+}
+
 function addNewCourse () {
     $.get('/courses/ajax/add.new.course',{},function(response){}).done(function(response){
         showModal('Add New Course',response);
     });
 }
 
-function updateCourse (formid) {
+function updateAssignment (formid) {
     var data = $('#' + formid).serialize();
-    $.post('/courses/ajax/update.course',data,function(response){}).done(function(response){
+    $.post('/assignments/ajax/update.assignment',data,function(response){}).done(function(response){
         location.reload();
     });
+}
+
+function editAssignment (assignmentid) {
+    $.get('/assignments/ajax/edit.current.assignment',{AssignmentID: assignmentid},function(response){}).done(function(response){
+        showModal('Edit Assignment',response);
+    });
+}
+
+function addNewAssignment (courseid) {
+    $.get('/assignments/ajax/add.new.assignment',{CourseID: courseid},function(response){}).done(function(response){
+        showModal('Add New Assignment',response);
+    });
+}
+
+function updateAssignmentCompletion(assignmentid, input){
+    $.get('/assignments/ajax/update.assignment',{AssignmentID: assignmentid, Complete: ($(input).is(':checked') ? 1 : 0)},function(response){
+        // console.log('Complete: ' + ($(input).is(':checked') ? 1 : 0))
+    })
 }
 
 function updateUser (formid) {

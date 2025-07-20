@@ -1,4 +1,8 @@
 body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: 100%;
     background-color: var(--primary-dark);
     color: var(--primary-text);
 }
@@ -7,10 +11,7 @@ footer{
     text-align: center;
     color: var(--secondary-text);
     background-color: var(--secondary);
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 12.5%;
-    padding-right: 12.5%;
+    padding: 10px 12.5%;
 }
 
 a {
@@ -21,15 +22,19 @@ a {
 h1, h2, h3, h4, h5, h6 {
     /*color: var(--primary-text);*/
     /*text-decoration: none;*/
+    margin: 0;
+    padding: 0;
 }
 
-.container {
+.container, .container-fluid {
     max-width: 100%;
     margin-left: 0;
     margin-right: 0;
     padding-left: 10%;
     padding-right: 10%;
 }
+
+.container-fluid {margin-top: 75px;}
 
 .navbar_bar {
     color: var(--secondary-text);
@@ -160,6 +165,10 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--primary-text);
 }
 
+.dropdown-divider {
+    background-color: var(--primary-text);
+}
+
 .btn {
     /*color: var(--primary-text);*/
     /*background-color: var(--primary);*/
@@ -185,7 +194,26 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .assignment_date_row, .assignment_name_row {
-    border-left: rgba(0, 0, 0, 0.35) 1px solid;
-    border-right: rgba(0, 0, 0, 0.35) 1px solid;
-    border-bottom: rgba(0, 0, 0, 0.35) 1px solid;
+    border: rgba(0, 0, 0, 0.35) 1px solid;
+    border-top: none;
+    color: var(--primary-text);
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.custom-checkbox {
+    appearance: none;
+    font-family: 'bootstrap-icons';
+}
+
+.custom-checkbox:before {
+    color: var(--primary-text);
+    content: '\F28A'
+}
+
+.custom-checkbox:checked:before {
+    color: green;
+    content: '\F26A';
 }

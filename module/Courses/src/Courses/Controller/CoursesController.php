@@ -7,7 +7,6 @@
 
 namespace Courses\Controller;
 
-use Courses\Courses;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 use Laminas\Session\Container;
@@ -48,9 +47,7 @@ class CoursesController extends AbstractActionController
     //Detail page actions
     public function detailsAction()
     {
-        $courses = new Courses();
-        $id = $this->params()->fromRoute('id');
-        $coursedetails = $courses->getDetails($id);
+        $coursedetails = (new \Courses\Courses)->getDetails($this->params()->fromRoute('id'));
 
         if(!empty($coursedetails)) {
             return new ViewModel(array('coursedetails' => $coursedetails));

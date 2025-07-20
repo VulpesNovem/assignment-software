@@ -7,7 +7,6 @@
 
 namespace Assignments\Controller;
 
-use Courses\Courses;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 use Laminas\Session\Container;
@@ -48,14 +47,12 @@ class AssignmentsController extends AbstractActionController
     //Detail page actions
     public function detailsAction()
     {
-//        $courses = new Courses();
-//        $id = $this->params()->fromRoute('id');
-//        $coursedetails = $courses->getDetails($id);
-//
-//        if(!empty($coursedetails)) {
-//            return new ViewModel(array('coursedetails' => $coursedetails));
-//        } else {
-//            return $this->redirect()->toRoute('courses');
-//        }
+        $assignmentdetails = (new \Assignments\Assignments)->getDetails($this->params()->fromRoute('id'));
+
+        if(!empty($assignmentdetails)) {
+            return new ViewModel(array('assignmentdetails' => $assignmentdetails));
+        } else {
+            return $this->redirect()->toRoute('assignments');
+        }
     }
 }

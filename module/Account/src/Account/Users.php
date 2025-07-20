@@ -26,11 +26,13 @@ class Users
 
     public function input($input) {
         $data = array();
-        if(isset($input['FirstName'])) { $data['FirstName'] = trim($input['FirstName']); }
-        if(isset($input['LastName'])) { $data['LastName'] = trim($input['LastName']); }
-        if(isset($input['Email'])) { $data['Email'] = trim($input['Email']); }
-        if(isset($input['Password'])) { $data['Password'] = md5($input['Password']); }
-        if(isset($input['ThemeID'])) { $data['ThemeID'] = trim($input['ThemeID']); }
+        if (isset($input['FirstName'])) { $data['FirstName'] = trim($input['FirstName']); }
+        if (isset($input['LastName'])) { $data['LastName'] = trim($input['LastName']); }
+        if (isset($input['Email'])) { $data['Email'] = trim($input['Email']); }
+        if (isset($input['Password'])) { $data['Password'] = md5($input['Password']); }
+        if (isset($input['ThemeID'])) { $data['ThemeID'] = trim($input['ThemeID']); }
+        if (isset($input['Active'])) { $data['Active'] = trim($input['Active']); }
+        if (isset($input['Admin'])) { $data['Admin'] = trim($input['Admin']); }
 
         if (isset($input[$this->_id])) {
             $this->update($input[$this->_id], $data);
@@ -44,6 +46,8 @@ class Users
     private function insert($data) {
         $data['EntryDate'] = date('Y-m-d H:i:s');
         $data['ThemeID'] = '1';
+        $data['Active'] = '1';
+        $data['Admin'] = '0';
 
         $this->_log->logInsertItem($this->_name, $data);
 

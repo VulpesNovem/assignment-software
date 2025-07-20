@@ -1,6 +1,1 @@
-<?php
-
-use Courses\Courses;
-
-$courses = new Courses;
-$courses->input($_POST);
+<?php (new \Courses\Courses)->input($_POST);

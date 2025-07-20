@@ -25,19 +25,25 @@ if (!empty($semestercourses)) {
                 <div class="card-header" style="overflow: visible">
                     <div class="dropdown float-end">
                         <a class="dropdown-button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu p-1" data-popper-placement="bottom-end">
+                            <li>
+                                <a class="dropdown-item clickable" onclick="editCourse(<?= $course['CourseID'] ?>)">Edit Course</a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form id="CourseCard<?=$course['CourseID']?>" class="p-1" onsubmit="updateCourse('CourseCard<?=$course['CourseID']?>'); return false;">
                                     <input type="hidden" name="CourseID" value="<?=$course['CourseID']?>">
-                                    <div class="row mb-2">
-                                        <div class="col">
+                                    <div class="row m-0 mb-2 p-0">
+                                        <div class="col m-0 p-0 d-flex align-items-center">
                                             <label>Card Color:&nbsp;</label>
-                                        </div>
-                                        <div class="col">
-                                            <input required type="color" name="CardColor" value="#<?=$course['CardColor']?>">
+                                            <input class="ms-auto" required type="color" name="CardColor" value="#<?=$course['CardColor']?>">
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-sm btn-primary">Save Color</button>
+                                    <div class="row m-0 p-0">
+                                        <div class="col-auto m-0 ms-auto p-0">
+                                            <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                                        </div>
+                                    </div>
                                 </form>
                             </li>
                         </ul>

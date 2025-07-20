@@ -1,1 +1,35 @@
-<?php
+<?php $assignmentdetails = $this->assignmentdetails[0]; ?>
+
+<div class="row mb-3">
+    <div class="col-auto align-content-center">
+        <input class="custom-checkbox" id="completionCheckbox" name="Complete" type="checkbox" <?php if ($assignmentdetails['Complete'] == 1) { echo 'checked'; } ?> onchange="updateAssignmentCompletion(<?= $assignmentdetails['AssignmentID'] ?>, '#completionCheckbox')" style="font-size: 2rem;">
+    </div>
+    <div class="col-auto align-content-center">
+        <a <?php if (!empty($assignmentdetails['SourceLink'])){ echo 'href="'.$assignmentdetails['SourceLink'].'" target="_blank"'; } ?>><h1 style="color: var(--primary-text);"><u><?= $assignmentdetails['AssignmentName'] ?></u></h1></a>
+    </div>
+    <div class="col-auto ms-auto align-content-center">
+        <h5><?= $assignmentdetails['DisciplineCode'].' '.$assignmentdetails['CourseNumber'] ?></h5>
+    </div>
+    <div class="col-auto align-content-center">
+        <a class="btn btn-primary" onclick="editAssignment(<?= $assignmentdetails['AssignmentID'] ?>)"><i class="bi bi-pencil-square"></i> Edit Assignment</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row m-0 p-2">
+                    <div class="col-auto m-0 p-0 me-auto">
+                        <h5><?= '<i class="bi '.$assignmentdetails['Icon'].'"></i> &nbsp'.$assignmentdetails['AssignmentType'] ?></h5>
+                    </div>
+                    <div class="col-auto m-0 p-0 ms-auto align-content-center">
+                        <h6>Due: <?= date( 'm/d/Y', strtotime($assignmentdetails['DueDate'])) ?></h6>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="card-text"><?= $assignmentdetails['AssignmentDescription'] ?></p>
+            </div>
+        </div>
+    </div>
+</div>
