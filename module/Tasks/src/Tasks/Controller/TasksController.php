@@ -1,9 +1,11 @@
-<?php use Laminas\Mvc\Controller\AbstractActionController;
+<?php namespace Tasks\Controller;
+
+use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 use Laminas\Session\Container;
 
 
-class AccountController extends AbstractActionController
+class TasksController extends AbstractActionController
 {
     protected $params;
 
@@ -33,5 +35,17 @@ class AccountController extends AbstractActionController
         $this->layout()->setTemplate('layout/ajax');
         $this->params = $this->params()->fromRoute();
         return new ViewModel(array('params'=>$this->params));
+    }
+
+    //Detail page actions
+    public function detailsAction()
+    {
+        $taskedetails = (new \Tasks\Tasks)->getDetails($this->params()->fromRoute('id'));
+
+        if(!empty($taskdetails)) {
+            return new ViewModel(array('taskdetails' => $taskdetails));
+        } else {
+            return $this->redirect()->toRoute('tasks');
+        }
     }
 }

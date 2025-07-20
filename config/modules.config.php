@@ -15,4 +15,5 @@ return [
     'Login',
     'Account',
     'Assignments',
+    'Tasks',
 ];

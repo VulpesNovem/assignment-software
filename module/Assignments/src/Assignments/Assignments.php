@@ -96,25 +96,41 @@ class Assignments
         return false;
     }
 
-    public function GetPast() {
+    public function GetPast () {
         $this->select->from('assignments_past');
         $this->select->order($this->_order);
         return $this->_db->selectWith($this->select)->toArray();
     }
 
-    public function GetUpcoming() {
+    public function GetUpcoming () {
         $this->select->from('assignments_upcoming');
         $this->select->order($this->_order);
         return $this->_db->selectWith($this->select)->toArray();
     }
 
-    public function GetOverdue() {
-        $this->select->from('assignments_overdue');
-        $this->select->order($this->_order);
-        return $this->_db->selectWith($this->select)->toArray();
+    public function GetPastByUserID ($userid) {
+        if(!empty($userid)) {
+            $this->select->from('assignments_past');
+            $where = new Where();
+            $where->equalTo('UserID', $userid);
+            $this->select->order($this->_order);
+            return $this->_db->selectWith($this->select->where($where))->toArray();
+        }
+        return false;
     }
 
-    public function GetPastByCourseID($courseid) {
+    public function GetUpcomingByUserID ($userid) {
+        if(!empty($userid)) {
+            $this->select->from('assignments_upcoming');
+            $where = new Where();
+            $where->equalTo('UserID', $userid);
+            $this->select->order($this->_order);
+            return $this->_db->selectWith($this->select->where($where))->toArray();
+        }
+        return false;
+    }
+
+    public function GetPastByCourseID ($courseid) {
         if(!empty($courseid)) {
             $this->select->from('assignments_past');
             $where = new Where();
@@ -125,7 +141,7 @@ class Assignments
         return false;
     }
 
-    public function GetUpcomingByCourseID($courseid) {
+    public function GetUpcomingByCourseID ($courseid) {
         if(!empty($courseid)) {
             $this->select->from('assignments_upcoming');
             $where = new Where();

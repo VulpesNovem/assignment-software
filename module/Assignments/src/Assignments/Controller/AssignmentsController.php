@@ -1,11 +1,4 @@
-<?php
-/**
- * @link      https://bayounorth.com
- * @copyright Copyright (c) 2005-2017 Mirliton Media, LLC
- * @license   http://framework.laminas.com/license/new-bsd New BSD License
- */
-
-namespace Assignments\Controller;
+<?php namespace Assignments\Controller;
 
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
