@@ -32,7 +32,7 @@ foreach ($upcomingassignmentslist as $upcomingassignment) {
                             <div class="col-auto px-auto align-content-center" style="background-color: var(--primary-dark);"><i class="bi <?= $assignment['Icon'] ?>"></i></div>
                             <h5 class="col-auto m-2 me-auto p-1 "><?= $assignment['AssignmentName']; ?></h5>
                             <label class="col-auto m-2 ms-auto p-1"><?php if ($assignment['Complete'] != 1) { echo date('H:i', strtotime($assignment['DueDate'])); }?></label>
-                            <input class="col-auto m-2 p-1 custom-checkbox" id="completionCheckbox<?= $assignment['AssignmentID'] ?>" name="Complete" type="checkbox" <?php if ($assignment['Complete'] == 1) { echo 'checked'; } ?> onchange="updateAssignmentCompletion(<?= $assignment['AssignmentID'] ?>, '#completionCheckbox<?= $assignment['AssignmentID'] ?>')">
+                            <input class="col-auto m-2 p-1 custom-checkbox" id="completionCheckbox<?= $assignment['AssignmentID'] ?>" name="Complete" type="checkbox" <?= $assignment['Complete'] == 1 ? 'checked' : '' ?> onchange="updateAssignmentCompletion(<?= $assignment['AssignmentID'] ?>, '#completionCheckbox<?= $assignment['AssignmentID'] ?>')">
                         </div>
                     </a>
                 <?php }
@@ -59,7 +59,7 @@ foreach ($upcomingassignmentslist as $upcomingassignment) {
                         <h5 class="col-auto m-2 me-auto p-1 "><?= $assignment['AssignmentName']; ?></h5>
                         <label class="col-auto m-2 ms-auto p-1"></label>
                         <div class="col-auto m-2 ms-auto p-1"><?php if ($assignment['Complete'] == 0) { echo '<i class="bi bi-exclamation-triangle-fill" style="color: red"></i>'; } ?></div>
-                        <input class="col-auto m-2 p-1 custom-checkbox" id="completionCheckbox<?= $assignment['AssignmentID'] ?>" name="Complete" type="checkbox" <?php if ($assignment['Complete'] == 1) { echo 'checked'; } ?> onchange="updateAssignmentCompletion(<?= $assignment['AssignmentID'] ?>, '#completionCheckbox<?= $assignment['AssignmentID'] ?>')">
+                        <input class="col-auto m-2 p-1 custom-checkbox" id="completionCheckbox<?= $assignment['AssignmentID'] ?>" name="Complete" type="checkbox" <?= $assignment['Complete'] == 1 ? 'checked' : '' ?> onchange="updateAssignmentCompletion(<?= $assignment['AssignmentID'] ?>, '#completionCheckbox<?= $assignment['AssignmentID'] ?>')">
                     </div>
                 </a>
             <?php }

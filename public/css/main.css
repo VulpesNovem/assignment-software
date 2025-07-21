@@ -217,3 +217,36 @@ h1, h2, h3, h4, h5, h6 {
     color: green;
     content: '\F26A';
 }
+
+.draggable-task-item {
+    height: 50px;
+}
+
+.draggable-handle {
+    background-color: var(--secondary);
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.draggable-handle:hover {
+    cursor: grab;
+}
+
+.draggable-handle:active {
+    cursor: grabbing;
+}
+
+.draggable-content {
+    background-color: var(--primary-dark);
+    border: var(--primary-text) 1px solid;
+    border-left: none;
+}
+
+.draggable-ghost .draggable-content {
+    background-color: var(--primary-light);
+    border: none;
+}
+
+.draggable-ghost .draggable-handle {
+    background-color: var(--secondary-light);
+}
