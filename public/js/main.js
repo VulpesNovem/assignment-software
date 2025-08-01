@@ -71,3 +71,20 @@ function updateUser (formid) {
         location.reload();
     });
 }
+
+function taskListsSortable (tasklistid, sortablelisttag, sortableitemtag, sortablehandletag) {
+    $(sortablelisttag).sortable({
+        animation: 150,
+        cursor: "grabbing",
+        group: "group",
+        handle: sortablehandletag,
+        items: sortableitemtag,
+        swapThreshold: 0.75,
+    })
+
+    $(sortableitemtag).on("dragstart", function (ev) {
+        const dragimage = new Image();
+        dragimage.src = "";
+        ev.originalEvent.dataTransfer.setDragImage(dragimage, 0, 0);
+    })
+}
