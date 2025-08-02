@@ -73,13 +73,18 @@ function updateUser (formid) {
 }
 
 function taskListsSortable (tasklistid, sortablelisttag, sortableitemtag, sortablehandletag) {
+    console.log("Task list made");
     $(sortablelisttag).sortable({
         animation: 150,
         cursor: "grabbing",
-        group: "group",
         handle: sortablehandletag,
         items: sortableitemtag,
         swapThreshold: 0.75,
+
+        receive: function (event, ui) {
+            let serialized = $(this).sortable('toArray');
+            console.log(sortablelisttag);
+        }
     })
 
     $(sortableitemtag).on("dragstart", function (ev) {
