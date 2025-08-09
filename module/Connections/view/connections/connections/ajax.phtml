@@ -1,0 +1,5 @@
+<?php if (!empty($this->params['id'])) {
+    include_once 'ajax/'.$this->params['id'].'.php';
+} else {
+    include_once 'ajax/index.php';
+}

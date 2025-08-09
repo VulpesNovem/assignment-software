@@ -77,6 +77,7 @@ function taskListsSortable (tasklistid, sortablelisttag, sortableitemtag, sortab
     $(sortablelisttag).sortable({
         animation: 150,
         cursor: "grabbing",
+        group: 'tasklistssortable',
         handle: sortablehandletag,
         items: sortableitemtag,
         swapThreshold: 0.75,
