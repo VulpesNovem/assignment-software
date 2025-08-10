@@ -27,7 +27,7 @@ $tasklistslist = (new \Tasks\TaskLists)->getAllByUserID($_SESSION['AssignmentSes
         </div>
     </div>
     <script>
-        taskListsSortable(0, '#tasksGeneral', '.sortable-task-item', '.sortable-handle');
+        taskListsSortable( '#tasksGeneral');
     </script>
 
     <?php if (!empty($tasklistslist)) {
@@ -58,7 +58,7 @@ $tasklistslist = (new \Tasks\TaskLists)->getAllByUserID($_SESSION['AssignmentSes
                 </div>
             </div>
             <script>
-                taskListsSortable(0, '#tasksList<?= $tasklist['TaskListID'] ?>', '.sortable-task-item', '.sortable-handle');
+                taskListsSortable( '#tasksList<?= $tasklist['TaskListID'] ?>', '.sortable-task-item', '.sortable-handle');
             </script>
         <?php }
     } ?>
