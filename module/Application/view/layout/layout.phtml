@@ -5,8 +5,8 @@
         <title>Assignment Tracker</title>
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0')->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
 
-        $userdetails = (new \Account\Users)->getDetails($_SESSION['AssignmentSession']['User'][0]['UserID'])[0];
-        $themedetails = (new \Account\Themes)->getDetails($userdetails['ThemeID'])[0];
+        $userdetails = (new \Account\Users)->Details($_SESSION['AssignmentSession']['User'][0]['UserID'])[0];
+        $themedetails = (new \Account\Themes)->Details($userdetails['ThemeID'])[0];
 
         include_once 'inc/assets.php';?>
         <link rel="stylesheet" href="/css/themes/<?= $themedetails['ThemeSheet'] ?>.css"/>

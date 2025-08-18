@@ -40,7 +40,7 @@ class AssignmentsController extends AbstractActionController
     //Detail page actions
     public function detailsAction()
     {
-        $assignmentdetails = (new \Assignments\Assignments)->getDetails($this->params()->fromRoute('id'));
+        $assignmentdetails = (new \Assignments\Assignments)->Details($this->params()->fromRoute('id'));
 
         if(!empty($assignmentdetails)) {
             return new ViewModel(array('assignmentdetails' => $assignmentdetails));

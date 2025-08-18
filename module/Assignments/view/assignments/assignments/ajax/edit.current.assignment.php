@@ -1,5 +1,5 @@
 <?php $assignmentid = $_GET['AssignmentID'];
-$assignmentdetails = (new \Assignments\Assignments)->getDetails($assignmentid)[0];
+$assignmentdetails = (new \Assignments\Assignments)->Details($assignmentid)[0];
 $assignmenttypelist = (new \Assignments\Assignments)->GetAssignmentTypes(); ?>
 
 <form id="EditAssignmentForm" onsubmit="updateAssignment('EditAssignmentForm'); return false;">

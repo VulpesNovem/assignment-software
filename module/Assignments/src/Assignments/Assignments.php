@@ -1,18 +1,14 @@
-<?php
-
-namespace Assignments;
-
-Use Application\Logs;
+<?php namespace Assignments;
 
 use Application\ConfigurationTableGateway;
 use Laminas\Db\Sql\Select;
-use Laminas\Db\Sql\Where;use Laminas\Mvc\Application;
+use Laminas\Db\Sql\Where;
+use Application\Logs;
 
-class Assignments
-{
-    protected $_name = 'assignments'; //db name
-    protected $_id = 'AssignmentID'; //Primary Key
-    protected $_order = 'DueDate ASC';
+class Assignments {
+    protected $_name = 'assignments'; // Table name
+    protected $_id = 'AssignmentID'; // Primary key
+    protected $_order = 'DueDate ASC'; // Sort order
     protected $select;
     protected $_db;
     protected $_log;
@@ -24,6 +20,24 @@ class Assignments
         return $this->_db;
     }
 
+    // Get details of a record
+    public function Details($assignmentid) {
+        if(!empty($assignmentid)) {
+            $this->select->from('assignments_full');
+            $where = new Where();
+            $where->equalTo($this->_id, $assignmentid);
+            return $this->_db->selectWith($this->select->where($where))->toArray();
+        }
+        return false;
+    }
+
+    // Get details of all records
+    public function All() {
+        $this->select->from($this->_name)->order(array('DueDate' => 'ASC'));
+        return $this->_db->selectWith($this->select)->toArray();
+    }
+
+    // Input data
     public function Input($input) {
         $data = array();
         if (isset($input['AssignmentTypeID'])) { $data['AssignmentTypeID'] = trim($input['AssignmentTypeID']); }
@@ -45,42 +59,31 @@ class Assignments
         }
     }
 
+    // Insert a new record
     private function Insert($data) {
         $data['EntryDate'] = date('Y-m-d H:i:s');
         $data['Complete'] = '0';
 
-        $this->_log->logInsertItem($this->_name, $data);
+        $this->_log->LogInsert($this->_name, $data);
 
         $this->_db->insert($data);
     }
 
+    // Update an existing record
     private function Update($assignmentid, $data) {
-        $this->_log->logUpdateItem($this->_name, $assignmentid, $data);
+        $this->_log->LogUpdate($this->_name, $assignmentid, $data);
 
         $this->_db->update($data, array($this->_id => $assignmentid));
     }
 
+    // Remove an exising record
     private function Delete($assignmentid) {
-        $this->_log->logDeleteItem($this->_name, $assignmentid, $this->GetDetails($assignmentid));
+        $this->_log->LogDelete($this->_name, $assignmentid, $this->Details($assignmentid));
 
         $this->_db->delete(array($this->_id => $assignmentid));
     }
 
-    public function GetDetails($assignmentid) {
-        if(!empty($assignmentid)) {
-            $this->select->from('assignments_full');
-            $where = new Where();
-            $where->equalTo($this->_id, $assignmentid);
-            return $this->_db->selectWith($this->select->where($where))->toArray();
-        }
-        return false;
-    }
-
-    public function GetAll() {
-        $this->select->from($this->_name)->order(array('DueDate' => 'ASC'));
-        return $this->_db->selectWith($this->select)->toArray();
-    }
-
+    // Get details of a record
     public function GetAssignmentTypes() {
         $this->select->from('assignment_types')->order(array('AssignmentTypeID' => 'ASC'));
         return $this->_db->selectWith($this->select)->toArray();

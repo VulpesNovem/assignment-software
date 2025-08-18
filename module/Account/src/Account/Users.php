@@ -1,30 +1,38 @@
-<?php
-
-namespace Account;
+<?php namespace Account;
 
 use Application\ConfigurationTableGateway;
-use Application\Logs;
 use Laminas\Db\Sql\Select;
 use Laminas\Db\Sql\Where;
+use Application\Logs;
 
-class Users
-{
-    protected $_name = 'users'; //db name
-    protected $_id = 'UserID'; //Primary Key
-    protected $_order = array('UserID' => 'ASC');
+class Users {
+    protected $_name = 'users'; // Table name
+    protected $_id = 'UserID'; // Primary key
+    protected $_order = array('UserID' => 'ASC'); // Sort order
     protected $select;
     protected $_db;
     protected $_log;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->_db = new ConfigurationTableGateway($this->_name);
         $this->select = new Select();
         $this->_log = new Logs;
         return $this->_db;
     }
 
-    public function input($input) {
+    // Get details of a record
+    public function Details($userid) {
+        if (!empty($userid)) {
+            $this->select->from($this->_name)->columns(array('UserID', 'FirstName', 'LastName', 'Email', 'ThemeID'));
+            $where = new Where();
+            $where->equalTo('UserID', $userid);
+            return $this->_db->selectWith($this->select->where($where))->toArray();
+        }
+        return false;
+    }
+
+    // Input data
+    public function Input($input) {
         $data = array();
         if (isset($input['FirstName'])) { $data['FirstName'] = trim($input['FirstName']); }
         if (isset($input['LastName'])) { $data['LastName'] = trim($input['LastName']); }
@@ -35,48 +43,42 @@ class Users
         if (isset($input['Admin'])) { $data['Admin'] = trim($input['Admin']); }
 
         if (isset($input[$this->_id])) {
-            $this->update($input[$this->_id], $data);
+            $this->Update($input[$this->_id], $data);
             return $input[$this->_id];
         } else {
-            $memberid = $this->insert($data);
+            $memberid = $this->Insert($data);
             return $memberid;
         }
     }
 
-    private function insert($data) {
+    // Insert a new record
+    private function Insert($data) {
         $data['EntryDate'] = date('Y-m-d H:i:s');
         $data['ThemeID'] = '1';
         $data['Active'] = '1';
         $data['Admin'] = '0';
 
-        $this->_log->logInsertItem($this->_name, $data);
+        $this->_log->LogInsert($this->_name, $data);
 
         $this->_db->insert($data);
     }
 
-    private function update($userid, $data) {
-        $this->_log->logUpdateItem($this->_name, $userid, $data);
+    // Update an existing record
+    private function Update($userid, $data) {
+        $this->_log->LogUpdate($this->_name, $userid, $data);
 
         $this->_db->update($data, array($this->_id => $userid));
     }
 
-    private function delete($userid) {
-        $this->_log->logDeleteItem($this->_name, $userid, $this->getDetails($userid));
+    // Remove an existing record
+    private function Delete($userid) {
+        $this->_log->LogDelete($this->_name, $userid, $this->Details($userid));
 
         $this->_db->delete(array($this->_id => $userid));
     }
 
-    public function getDetails($userid) {
-        if (!empty($userid)) {
-            $this->select->from($this->_name)->columns(array('UserID', 'FirstName', 'LastName', 'Email', 'ThemeID'));
-            $where = new Where();
-            $where->equalTo('UserID', $userid);
-            return $this->_db->selectWith($this->select->where($where))->toArray();
-        }
-        return false;
-    }
-
-    public function validate($data) {
+    // Validate login information
+    public function Validate($data) {
         $this->select->from($this->_name)->columns(array('UserID'));
         $where = new Where();
         $where->equalTo('Email', $data['Email'])->equalTo('Password', md5($data['Password']))->equalTo('users.Active', '1');
@@ -85,7 +87,7 @@ class Users
         if (empty($result['UserID'])) {
             return false;
         } else {
-            return $this->getDetails($result['UserID']);
+            return $this->Details($result['UserID']);
         }
     }
 }

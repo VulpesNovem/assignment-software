@@ -43,19 +43,19 @@ class ConnectionRequests
         $data['UserID'] = $_SESSION['AssignmentSession']['User'][0]['UserID'];
         $data['EntryDate'] = date('Y-m-d H:i:s');
 
-        $this->_log->logInsertItem($this->_name, $data);
+        $this->_log->LogInsert($this->_name, $data);
 
         $this->_db->insert($data);
     }
 
     private function update($tasklistid, $data) {
-        $this->_log->logUpdateItem($this->_name, $tasklistid, $data);
+        $this->_log->LogUpdate($this->_name, $tasklistid, $data);
 
         $this->_db->update($data, array($this->_id => $tasklistid));
     }
 
     private function delete($tasklistid) {
-        $this->_log->logDeleteItem($this->_name, $tasklistid, $this->getDetails($tasklistid));
+        $this->_log->LogDelete($this->_name, $tasklistid, $this->getDetails($tasklistid));
 
         $this->_db->delete(array($this->_id => $tasklistid));
     }

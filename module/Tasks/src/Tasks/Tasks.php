@@ -47,19 +47,19 @@ class Tasks
         $data['ListOrdering'] = 1;
         $data['TaskListID'] = 0;
 
-        $this->_log->logInsertItem($this->_name, $data);
+        $this->_log->LogInsert($this->_name, $data);
 
         $this->_db->insert($data);
     }
 
     private function update($taskid, $data) {
-        $this->_log->logUpdateItem($this->_name, $taskid, $data);
+        $this->_log->LogUpdate($this->_name, $taskid, $data);
 
         $this->_db->update($data, array($this->_id => $taskid));
     }
 
     private function delete($taskid) {
-        $this->_log->logDeleteItem($this->_name, $taskid, $this->getDetails($taskid));
+        $this->_log->LogDelete($this->_name, $taskid, $this->getDetails($taskid));
 
         $this->_db->delete(array($this->_id => $taskid));
     }

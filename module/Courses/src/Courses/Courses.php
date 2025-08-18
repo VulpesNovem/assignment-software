@@ -49,19 +49,19 @@ class Courses
         $data['EntryDate'] = date('Y-m-d H:i:s');
         $data['CardColor'] = '000000';
 
-        $this->_log->logInsertItem($this->_name, $data);
+        $this->_log->LogInsert($this->_name, $data);
 
         $this->_db->insert($data);
     }
 
     private function update($courseid, $data) {
-        $this->_log->logUpdateItem($this->_name, $courseid, $data);
+        $this->_log->LogUpdate($this->_name, $courseid, $data);
 
         $this->_db->update($data, array($this->_id => $courseid));
     }
 
     private function delete($courseid) {
-        $this->_log->logDeleteItem($this->_name, $courseid, $this->getDetails($courseid));
+        $this->_log->LogDelete($this->_name, $courseid, $this->getDetails($courseid));
 
         $this->_db->delete(array($this->_id => $courseid));
     }

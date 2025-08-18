@@ -30,12 +30,12 @@ class LoginController extends AbstractActionController
     {
         if ($_POST) {
             $user = new Users;
-            $validate = $user->validate($_POST);
+            $validate = $user->Validate($_POST);
             if(!empty($validate)){
                 $_SESSION['AssignmentSession'] = array();
                 $_SESSION['AssignmentSession']['User'] = $validate;
 
-                $this->_log->logLogin($validate[0]['UserID'], $validate[0]);
+                $this->_log->LogLogin($validate[0]['UserID'], $validate[0]);
 
                 $this->redirect()->toRoute('home');
             }

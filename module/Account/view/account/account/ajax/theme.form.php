@@ -3,8 +3,8 @@
 use Account\Themes;
 use Account\Users;
 
-$userdetails = (new Users)->getDetails($_SESSION['AssignmentSession']['User'][0]['UserID'])[0];
-$themelist = (new Themes)->getAll();
+$userdetails = (new Users)->Details($_SESSION['AssignmentSession']['User'][0]['UserID'])[0];
+$themelist = (new Themes)->All();
 ?>
 
 <div class="row mb-3">
