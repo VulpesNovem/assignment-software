@@ -6,7 +6,7 @@ $semesterid = $_GET['SemesterID'];
 $semestershown = $semesters->getDetails($semesterid);
 
 $courses = new Courses();
-$courselist = $courses->getAllByUserID($_SESSION['AssignmentSession']['User'][0]['UserID']);
+$courselist = $courses->AllByUserID($_SESSION['AssignmentSession']['User'][0]['UserID']);
 
 $semestercourses = [];
 foreach ($courselist as $course) {
@@ -49,7 +49,7 @@ if (!empty($semestercourses)) {
                         </ul>
                     </div>
                     <a href="/courses/details/<?=$course['CourseID']?>" style="overflow: hidden;">
-                        <h5><?=$course['DisciplineCode'];?> <?=$course['CourseNumber'];?> - <?=sprintf('%03d', $course['SectionNumber']);?></h5>
+                        <h5><?= ($course['CourseNumber'] ?? '') ?></h5>
                     </a>
                 </div>
                 <a class="card-body" id="cardBody<?=$course['CourseID']?>" href="/courses/details/<?=$course['CourseID']?>" style="background-color:#<?=$course['CardColor']?>"></a>

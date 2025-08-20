@@ -6,7 +6,7 @@ use Application\ConfigurationTableGateway;
 use Laminas\Db\Sql\Select;
 use Laminas\Db\Sql\Where;
 
-class Disciplines
+class archive_Disciplines
 {
     protected $_name = 'disciplines'; //db name
     protected $_id = 'DisciplineID'; //Primary Key

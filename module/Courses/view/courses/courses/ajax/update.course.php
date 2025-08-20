@@ -1,1 +1,1 @@
-<?php (new \Courses\Courses)->input($_POST);
+<?php (new \Courses\Courses)->Input($_POST);

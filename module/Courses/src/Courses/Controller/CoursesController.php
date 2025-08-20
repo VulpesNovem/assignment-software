@@ -40,7 +40,7 @@ class CoursesController extends AbstractActionController
     //Detail page actions
     public function detailsAction()
     {
-        $coursedetails = (new \Courses\Courses)->getDetails($this->params()->fromRoute('id'));
+        $coursedetails = (new \Courses\Courses)->Details($this->params()->fromRoute('id'));
 
         if(!empty($coursedetails)) {
             return new ViewModel(array('coursedetails' => $coursedetails));

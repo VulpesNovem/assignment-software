@@ -5,8 +5,8 @@ use Courses\Semesters;
 
 $userid = $_SESSION['AssignmentSession']['User'][0]['UserID'];
 $courses = new Courses;
-$disciplines = new Disciplines;
-$disciplinelist = $disciplines->getAll();
+//$disciplines = new Disciplines;
+//$disciplinelist = $disciplines->getAll();
 $semesters = new Semesters;
 $semesterlist = $semesters->getAll();
 ?>
@@ -18,25 +18,8 @@ $semesterlist = $semesters->getAll();
     </div>
 
     <div class="row mb-1">
-        <div class="col-6"><label>Discipline</label></div>
-        <div class="col-6">
-            <select required class="form-select" name="DisciplineID">
-                <option value="" selected>Select Discipline</option>
-                <?php foreach ($disciplinelist as $discipline) { ?>
-                    <option value="<?= $discipline['DisciplineID']; ?>" ><?= $discipline['DisciplineName']; ?></option>
-                <?php } ?>
-            </select>
-        </div>
-    </div>
-
-    <div class="row mb-1">
         <div class="col-6"><label>Course Number</label></div>
         <div class="col-6"><input required class="form-control" type="text" name="CourseNumber" placeholder="Course Number"></div>
-    </div>
-
-    <div class="row mb-1">
-        <div class="col-6"><label>Section Number</label></div>
-        <div class="col-6"><input required class="form-control" type="number" max="999" name="SectionNumber" placeholder="Section Number"></div>
     </div>
 
     <div class="row mb-3">
