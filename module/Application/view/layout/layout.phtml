@@ -5,6 +5,8 @@
         <title>Assignment Tracker</title>
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0')->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
 
+//        echo '<pre>'; die(print_r($_SESSION));
+
         $userdetails = (new \Account\Users)->Details($_SESSION['AssignmentSession']['User'][0]['UserID'])[0];
         $themedetails = (new \Account\Themes)->Details($userdetails['ThemeID'])[0];
 

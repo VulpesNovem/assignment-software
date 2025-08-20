@@ -72,26 +72,19 @@ function updateUser (formid) {
     });
 }
 
-function taskListsSortable (sortablelisttag, sortableitemtag, sortablehandletag) {
+function taskListsSortable (sortablelisttag, sortableitemtag, sortablehandletag, sortablegrouptag) {
     console.log(sortablelisttag);
     $(sortablelisttag).sortable({
         // animation: 150,
-        // cursor: "grabbing",
-        // group: 'tasklistssortable',
-        // handle: sortablehandletag,
-        // items: sortableitemtag,
-        // swapThreshold: 0.75,
+        cursor: "grabbing",
+        connectWith: sortablegrouptag,
+        handle: sortablehandletag,
+        items: sortableitemtag,
 
-        start: function (event, ui) {
-            console.log('Bonjour');
-            // let serialized = $(this).sortable('toArray');
-            // console.log(sortablelisttag);
+        receive: function (event, ui) {
+            // console.log('Bonjour');
+            let sortableArray = $(this).sortable('toArray');
+            console.log(sortableArray);
         }
     })
-    //
-    // $(sortableitemtag).on("dragstart", function (ev) {
-    //     const dragimage = new Image();
-    //     dragimage.src = "";
-    //     ev.originalEvent.dataTransfer.setDragImage(dragimage, 0, 0);
-    // })
 }

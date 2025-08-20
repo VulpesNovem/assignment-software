@@ -8,10 +8,10 @@ $tasklistslist = (new \Tasks\TaskLists)->getAllByUserID($_SESSION['AssignmentSes
                 <h5>General</h5>
             </div>
             <div class="card-body">
-                <ul class="m-0" id="tasksGeneral" style="min-height: 50px;">
+                <ul class="m-0 sortable-task-list" id="tasksGeneral" style="min-height: 50px;">
                     <?php if (!empty($unlistedtasklist)) {
                         foreach ($unlistedtasklist as $unlistedtask) { ?>
-                            <li class="row m-0 p-0 sortable-task-item">
+                            <li class="row m-0 p-0 sortable-task-item" id="taskItem<?= $unlistedtask['TaskID'] ?>">
                                 <div class="col-auto p-0 align-content-center sortable-handle">
                                     <i class="bi bi-grip-vertical"></i>
                                 </div>
@@ -27,7 +27,7 @@ $tasklistslist = (new \Tasks\TaskLists)->getAllByUserID($_SESSION['AssignmentSes
         </div>
     </div>
     <script>
-        taskListsSortable( '#tasksGeneral');
+        taskListsSortable( '#tasksGeneral', '.sortable-task-item', '.sortable-handle', '.sortable-task-list');
     </script>
 
     <?php if (!empty($tasklistslist)) {
@@ -38,11 +38,11 @@ $tasklistslist = (new \Tasks\TaskLists)->getAllByUserID($_SESSION['AssignmentSes
                         <h5><?= $tasklist['TaskListTitle'] ?></h5>
                     </div>
                     <div class="card-body">
-                        <ul class="m-0" id="tasksList<?= $tasklist['TaskListID'] ?>" style="min-height: 50px;">
+                        <ul class="m-0 sortable-task-list" id="tasksList<?= $tasklist['TaskListID'] ?>" style="min-height: 50px;">
                             <?php $taskslist = (new \Tasks\Tasks)->getAllByTaskListID($tasklist['TaskListID']);
                             if (!empty($taskslist)) {
                                 foreach ($taskslist as $task) { ?>
-                                    <li class="row m-0 p-0 sortable-task-item">
+                                    <li class="row m-0 p-0 sortable-task-item" id="taskItem<?= $task['TaskID'] ?>">
                                         <div class="col-auto p-0 align-content-center sortable-handle">
                                             <i class="bi bi-grip-vertical"></i>
                                         </div>
@@ -58,7 +58,7 @@ $tasklistslist = (new \Tasks\TaskLists)->getAllByUserID($_SESSION['AssignmentSes
                 </div>
             </div>
             <script>
-                taskListsSortable( '#tasksList<?= $tasklist['TaskListID'] ?>', '.sortable-task-item', '.sortable-handle');
+                taskListsSortable( '#tasksList<?= $tasklist['TaskListID'] ?>', '.sortable-task-item', '.sortable-handle', '.sortable-task-list');
             </script>
         <?php }
     } ?>
