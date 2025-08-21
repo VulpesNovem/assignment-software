@@ -72,10 +72,12 @@ function updateUser (formid) {
     });
 }
 
+function updateTaskOrder (data) {
+    $.post('/tasks/ajax/update.task.order', { Data: data });
+}
+
 function taskListsSortable (sortablelisttag, sortableitemtag, sortablehandletag, sortablegrouptag) {
-    console.log(sortablelisttag);
     $(sortablelisttag).sortable({
-        // animation: 150,
         cursor: "grabbing",
         connectWith: sortablegrouptag,
         handle: sortablehandletag,
@@ -85,6 +87,18 @@ function taskListsSortable (sortablelisttag, sortableitemtag, sortablehandletag,
             // console.log('Bonjour');
             let sortableArray = $(this).sortable('toArray');
             console.log(sortableArray);
+
+            let data = {};
+            for (let i = 0; i < sortableArray.length; i++) {
+                data[i] = {
+                    TaskID: $('#' + sortableArray[i]).data('taskid'),
+                    TaskListID: $(this).data('tasklistid'),
+                    TaskListOrdering: i
+                };
+            }
+
+            console.log(data);
+            updateTaskOrder(data);
         }
     })
 }

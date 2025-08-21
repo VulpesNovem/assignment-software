@@ -1,4 +1,6 @@
-<?php use Laminas\Mvc\Controller\AbstractActionController;
+<?php namespace Account\Controller;
+
+use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 use Laminas\Session\Container;
 

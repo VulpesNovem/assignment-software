@@ -27,7 +27,7 @@ class Tasks
         if (isset($input['TaskTitle'])) { $data['UserID'] = trim($input['UserID']); }
         if (isset($input['TaskDescription'])) { $data['CourseName'] = trim($input['CourseName']); }
         if (isset($input['Complete'])) { $data['DisciplineID'] = trim($input['DisciplineID']); }
-        if (isset($input['ListOrdering'])) { $data['CourseNumber'] = trim($input['CourseNumber']); }
+        if (isset($input['TaskListOrdering'])) { $data['CourseNumber'] = trim($input['CourseNumber']); }
         if (isset($input['TaskListID'])) { $data['TaskListID'] = trim($input['TaskListID']); }
 
         if(isset($input[$this->_id])){
@@ -44,7 +44,7 @@ class Tasks
         $data['UserID'] = $_SESSION['AssignmentSession']['User'][0]['UserID'];
         $data['EntryDate'] = date('Y-m-d H:i:s');
         $data['Complete'] = 0;
-        $data['ListOrdering'] = 1;
+        $data['TaskListOrdering'] = 1;
         $data['TaskListID'] = 0;
 
         $this->_log->LogInsert($this->_name, $data);
