@@ -1,3 +1,5 @@
 <?php
-die(print_r($_POST));
-(new Tasks\Tasks)->Input($_POST);
+$tasks = json_decode($_POST['data'], true);
+foreach ($tasks as $task) {
+    (new Tasks\Tasks)->Input($task);
+}

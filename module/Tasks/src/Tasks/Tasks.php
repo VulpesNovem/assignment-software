@@ -25,9 +25,9 @@ class Tasks
     public function input($input){
         $data = array();
         if (isset($input['TaskTitle'])) { $data['UserID'] = trim($input['UserID']); }
-        if (isset($input['TaskDescription'])) { $data['CourseName'] = trim($input['CourseName']); }
-        if (isset($input['Complete'])) { $data['DisciplineID'] = trim($input['DisciplineID']); }
-        if (isset($input['TaskListOrdering'])) { $data['CourseNumber'] = trim($input['CourseNumber']); }
+        if (isset($input['TaskDescription'])) { $data['TaskDescription'] = trim($input['TaskDescription']); }
+        if (isset($input['Complete'])) { $data['Complete'] = trim($input['Complete']); }
+        if (isset($input['TaskListOrdering'])) { $data['TaskListOrdering'] = trim($input['TaskListOrdering']); }
         if (isset($input['TaskListID'])) { $data['TaskListID'] = trim($input['TaskListID']); }
 
         if(isset($input[$this->_id])){
