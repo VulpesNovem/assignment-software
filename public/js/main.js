@@ -73,7 +73,7 @@ function updateUser (formid) {
 }
 
 function updateTaskOrder (data) {
-    $.post('/tasks/ajax/update.task.order', { Data: data });
+    $.post('/tasks/ajax/update.task.order', data,);
 }
 
 function taskListsSortable (sortablelisttag, sortableitemtag, sortablehandletag, sortablegrouptag) {
@@ -94,11 +94,11 @@ function taskListsSortable (sortablelisttag, sortableitemtag, sortablehandletag,
                     TaskID: $('#' + sortableArray[i]).data('taskid'),
                     TaskListID: $(this).data('tasklistid'),
                     TaskListOrdering: i
-                };
+                }
             }
 
-            console.log(data);
-            updateTaskOrder(data);
+            console.log(JSON.stringify((data)));
+            updateTaskOrder(JSON.stringify((data)));
         }
     })
 }
