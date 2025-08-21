@@ -218,29 +218,30 @@ h1, h2, h3, h4, h5, h6 {
     content: '\F26A';
 }
 
-/*.sortable-task-item {*/
-/*    height: 50px;*/
-/*}*/
+.sortable-task-item {
+    height: 50px;
+}
 
-/*.sortable-handle {*/
-/*    background-color: var(--secondary);*/
-/*    font-size: 2rem;*/
-/*    font-weight: bold;*/
-/*}*/
+.sortable-handle {
+    background-color: var(--secondary);
+    color: var(--secondary-text);
+    font-size: 2rem;
+    font-weight: bold;
+}
 
-/*.sortable-handle:hover {*/
-/*    cursor: grab;*/
-/*}*/
+.sortable-handle:hover {
+    cursor: grab;
+}
 
-/*.sortable-handle:active {*/
-/*    cursor: grabbing;*/
-/*}*/
+.sortable-handle:active {
+    cursor: grabbing;
+}
 
-/*.sortable-content {*/
-/*    background-color: var(--primary-dark);*/
-/*    border: var(--primary-text) 1px solid;*/
-/*    border-left: none;*/
-/*}*/
+.sortable-content {
+    background-color: var(--primary-dark);
+    border: var(--primary-text) 1px solid;
+    border-left: none;
+}
 
 /*.sortable-ghost .sortable-content {*/
 /*    background-color: var(--primary-light);*/
@@ -258,4 +259,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .profile-page-icon {
     height: 150px;
+}
+
+.profile-page-edit-icon {
+    height: 100px;
 }

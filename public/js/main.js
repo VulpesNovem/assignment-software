@@ -73,7 +73,8 @@ function updateUser (formid) {
 }
 
 function updateTaskOrder (data) {
-    $.post('/tasks/ajax/update.task.order', data,);
+    console.log(data);
+    $.post('/tasks/ajax/update.task.order', { data: JSON.stringify(data) });
 }
 
 function taskListsSortable (sortablelisttag, sortableitemtag, sortablehandletag, sortablegrouptag) {
@@ -83,22 +84,20 @@ function taskListsSortable (sortablelisttag, sortableitemtag, sortablehandletag,
         handle: sortablehandletag,
         items: sortableitemtag,
 
-        receive: function (event, ui) {
-            // console.log('Bonjour');
-            let sortableArray = $(this).sortable('toArray');
-            console.log(sortableArray);
+        update: function () { send(this); },
+        receive: function () { send(this); }
+    });
 
-            let data = {};
-            for (let i = 0; i < sortableArray.length; i++) {
-                data[i] = {
-                    TaskID: $('#' + sortableArray[i]).data('taskid'),
-                    TaskListID: $(this).data('tasklistid'),
-                    TaskListOrdering: i
-                }
-            }
-
-            console.log(JSON.stringify((data)));
-            updateTaskOrder(JSON.stringify((data)));
+    function send(ctx) {
+        let sortableArray = $(ctx).sortable('toArray');
+        let data = {};
+        for (let i = 0; i < sortableArray.length; i++) {
+            data[i] = {
+                TaskID: $('#' + sortableArray[i]).data('taskid'),
+                TaskListID: $(ctx).data('tasklistid'),
+                TaskListOrdering: i
+            };
         }
-    })
+        updateTaskOrder(data);
+    }
 }
