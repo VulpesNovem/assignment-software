@@ -23,7 +23,7 @@ class Users {
     // Get details of a record
     public function Details($userid) {
         if (!empty($userid)) {
-            $this->select->from($this->_name)->columns(array('UserID', 'FirstName', 'LastName', 'Email', 'ThemeID'));
+            $this->select->from($this->_name)->columns(array('UserID', 'DisplayName', 'FirstName', 'LastName', 'Email', 'ThemeID', 'Connections'));
             $where = new Where();
             $where->equalTo('UserID', $userid);
             return $this->_db->selectWith($this->select->where($where))->toArray();
@@ -34,6 +34,7 @@ class Users {
     // Input data
     public function Input($input) {
         $data = array();
+        if (isset($input['DisplayName'])) { $data['DisplayName'] = trim($input['DisplayName']); }
         if (isset($input['FirstName'])) { $data['FirstName'] = trim($input['FirstName']); }
         if (isset($input['LastName'])) { $data['LastName'] = trim($input['LastName']); }
         if (isset($input['Email'])) { $data['Email'] = trim($input['Email']); }
