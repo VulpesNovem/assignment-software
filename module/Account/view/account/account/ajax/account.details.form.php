@@ -36,7 +36,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <input type="file" class="form-control" name="ProfilePicture">
+                    <input type="file" class="form-control" name="ProfilePicture" accept="image/*">
                 </div>
             </div>
         </div>
