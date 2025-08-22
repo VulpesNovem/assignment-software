@@ -60,9 +60,7 @@ function addNewAssignment (courseid) {
 }
 
 function updateAssignmentCompletion(assignmentid, input){
-    $.get('/assignments/ajax/update.assignment',{AssignmentID: assignmentid, Complete: ($(input).is(':checked') ? 1 : 0)},function(response){
-        // console.log('Complete: ' + ($(input).is(':checked') ? 1 : 0))
-    })
+    $.get('/assignments/ajax/update.assignment',{AssignmentID: assignmentid, Complete: ($(input).is(':checked') ? 1 : 0)},function(response){})
 }
 
 function updateUser (formid) {
@@ -70,6 +68,10 @@ function updateUser (formid) {
     $.post('/account/ajax/update.user',data,function(response){}).done(function(response){
         location.reload();
     });
+}
+
+function updateTaskCompletion(taskid, input){
+    $.get('/tasks/ajax/update.task',{TaskID: taskid, Complete: ($(input).is(':checked') ? 1 : 0)},function(response){})
 }
 
 function updateTaskOrder (data) {

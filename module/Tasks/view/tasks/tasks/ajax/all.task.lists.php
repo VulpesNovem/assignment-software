@@ -8,7 +8,7 @@ $tasklistslist = (new \Tasks\TaskLists)->getAllByUserID($_SESSION['AssignmentSes
                 <h5>General</h5>
             </div>
             <div class="card-body">
-                <ul class="m-0 sortable-task-list" id="tasksGeneral" style="min-height: 50px;" data-tasklistid="0">
+                <ul class="m-0 p-0 sortable-task-list" id="tasksGeneral" style="min-height: 50px;" data-tasklistid="0">
                     <?php if (!empty($unlistedtasklist)) {
                         foreach ($unlistedtasklist as $unlistedtask) { ?>
                             <li class="row m-0 p-0 sortable-task-item" id="taskItem<?= $unlistedtask['TaskID'] ?>" data-taskid="<?= $unlistedtask['TaskID'] ?>">
@@ -16,8 +16,8 @@ $tasklistslist = (new \Tasks\TaskLists)->getAllByUserID($_SESSION['AssignmentSes
                                     <i class="bi bi-grip-vertical"></i>
                                 </div>
                                 <div class="col ps-3 align-content-center sortable-content">
-                                    <input class="custom-checkbox" type="checkbox" <?= $unlistedtask['Complete'] == 1 ? 'checked' : '' ?>>
-                                    <h5 class=" ps-3 d-inline"><?= $unlistedtask['TaskTitle'] ?></h5>
+                                    <input class="custom-checkbox" id="taskCompletionCheckbox<?= $unlistedtask['TaskID'] ?>" name="Complete" type="checkbox" <?= $unlistedtask['Complete'] == 1 ? 'checked' : '' ?> onchange="updateTaskCompletion(<?= $unlistedtask['TaskID'] ?>, '#taskCompletionCheckbox<?= $unlistedtask['TaskID'] ?>')">
+                                    <h5 class="ps-3 d-inline"><?= $unlistedtask['TaskTitle'] ?></h5>
                                 </div>
                             </li>
                         <?php }
@@ -38,7 +38,7 @@ $tasklistslist = (new \Tasks\TaskLists)->getAllByUserID($_SESSION['AssignmentSes
                         <h5><?= $tasklist['TaskListTitle'] ?></h5>
                     </div>
                     <div class="card-body">
-                        <ul class="m-0 sortable-task-list" id="tasksList<?= $tasklist['TaskListID'] ?>" style="min-height: 50px;" data-tasklistid="<?= $tasklist['TaskListID'] ?>">
+                        <ul class="m-0 p-0 sortable-task-list" id="tasksList<?= $tasklist['TaskListID'] ?>" style="min-height: 50px;" data-tasklistid="<?= $tasklist['TaskListID'] ?>">
                             <?php $taskslist = (new \Tasks\Tasks)->getAllByTaskListID($tasklist['TaskListID']);
                             if (!empty($taskslist)) {
                                 foreach ($taskslist as $task) { ?>
@@ -47,8 +47,8 @@ $tasklistslist = (new \Tasks\TaskLists)->getAllByUserID($_SESSION['AssignmentSes
                                             <i class="bi bi-grip-vertical"></i>
                                         </div>
                                         <div class="col ps-3 align-content-center sortable-content">
-                                            <input class="custom-checkbox" type="checkbox">
-                                            <h5 class=" ps-3 d-inline"><?= $task['TaskTitle'] ?></h5>
+                                            <input class="custom-checkbox" id="taskCompletionCheckbox<?= $task['TaskID'] ?>" name="Complete" type="checkbox" <?= $task['Complete'] == 1 ? 'checked' : '' ?> onchange="updateTaskCompletion(<?= $task['TaskID'] ?>, '#taskCompletionCheckbox<?= $task['TaskID'] ?>')">
+                                            <h5 class="ps-3 d-inline"><?= $task['TaskTitle'] ?></h5>
                                         </div>
                                     </li>
                                 <?php }
