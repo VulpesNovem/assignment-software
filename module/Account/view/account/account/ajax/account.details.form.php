@@ -1,6 +1,6 @@
 <?php $userdetails = (new Account\Users)->Details($_SESSION['AssignmentSession']['User'][0]['UserID'])[0]; ?>
 
-<form id="AccountDetailsForm" onsubmit="updateUser('AccountDetailsForm'); return false;">
+<form id="AccountDetailsForm" onsubmit="updateUserProfilePhoto('AccountDetailsForm'); updateUser('AccountDetailsForm'); return false;">
     <div class="row mb-3">
         <div class="col-auto me-auto">
             <h4>Account Details</h4>
@@ -12,7 +12,11 @@
 
     <div class="row mx-3 py-3" id="accountDetailsView">
         <div class="col-3 d-flex justify-content-center align-items-center">
-            <img class="profile-page-icon my-1" src="img/usericons/placeholder/person-circle.svg">
+            <?php if(file_exists('img/usericons/'.$userdetails['UserID'].'/'.$userdetails['UserID'].'profile.png')) { ?>
+                <img class="profile-page-icon my-1" src="img/usericons/<?= $userdetails['UserID'].'/'.$userdetails['UserID'] ?>profile.png'">
+            <?php } else { ?>
+                <i class="profile-page-icon bi bi-person-circle" style="color: var(--primary-text); font-size: 150px; line-height: 0;"></i>
+            <?php } ?>
         </div>
         <div class="col-6 align-content-center">
             <h1 class="mb-2"><?= $userdetails['DisplayName'] ?></h1>
@@ -31,7 +35,11 @@
         <div class="col-3 justify-content-center align-items-center">
             <div class="row mb-2">
                 <div class="col text-center">
-                    <img class="profile-page-edit-icon my-1" src="img/usericons/placeholder/person-circle.svg">
+                    <?php if(file_exists('img/usericons/'.$userdetails['UserID'].'/'.$userdetails['UserID'].'profile.png')) { ?>
+                        <img class="profile-page-edit-icon my-1" src="img/usericons/<?= $userdetails['UserID'].'/'.$userdetails['UserID'] ?>profile.png'">
+                    <?php } else { ?>
+                        <i class="profile-page-icon bi bi-person-circle" style="color: var(--primary-text); font-size: 100px; line-height: 0;"></i>
+                    <?php } ?>
                 </div>
             </div>
             <div class="row">

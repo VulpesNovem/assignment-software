@@ -66,8 +66,20 @@ function updateAssignmentCompletion(assignmentid, input){
 function updateUser (formid) {
     var data = $('#' + formid).serialize();
     $.post('/account/ajax/update.user',data,function(response){}).done(function(response){
-        location.reload();
+        // location.reload();
     });
+}
+
+function updateUserProfilePhoto (formid) {
+    var formData = new FormData();
+    formData.append('file', $('#file')[0].files[0]);
+
+    // $.post({
+    //     url : 'update.user.profile.photo.php',
+    //     data : formData,
+    //     processData: false,
+    //     contentType: false,
+    // });
 }
 
 function updateTaskCompletion(taskid, input){
