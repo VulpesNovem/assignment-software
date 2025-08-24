@@ -66,20 +66,23 @@ function updateAssignmentCompletion(assignmentid, input){
 function updateUser (formid) {
     var data = $('#' + formid).serialize();
     $.post('/account/ajax/update.user',data,function(response){}).done(function(response){
-        // location.reload();
+        location.reload();
     });
 }
 
-function updateUserProfilePhoto (formid) {
+function updateUserProfilePhoto (formid, userid) {
     var formData = new FormData();
-    formData.append('file', $('#file')[0].files[0]);
+    formData.append('ProfilePicture', $('#ProfilePictureUpload')[0].files[0]);
 
-    // $.post({
-    //     url : 'update.user.profile.photo.php',
-    //     data : formData,
-    //     processData: false,
-    //     contentType: false,
-    // });
+    $.ajax({
+        type : 'POST',
+        url : '/account/ajax/update.user.profile.photo?UserID=' + userid,
+        data : formData,
+        processData: false,
+        contentType: false,
+    });
+
+    return false;
 }
 
 function updateTaskCompletion(taskid, input){

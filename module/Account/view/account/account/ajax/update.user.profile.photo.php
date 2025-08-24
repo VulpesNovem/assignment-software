@@ -1,14 +1,18 @@
 <?php
-die('Upload');
+//die(print_r($_FILES));
+//die(print_r($_GET['UserID']));
 
-if (!empty($_FILES['ProfilePicture']['name']) && !empty($_POST['UserID'])) {
-    $userId = preg_replace("/[^a-zA-Z0-9_-]/", "", $_POST['UserID']);
+if (!empty($_FILES['ProfilePicture']) && !empty($_GET['UserID'])) {
+//    (print_r($_FILES));
+//    die(print_r($_GET['UserID']));
 
-    if (!is_dir('img/usericons/'.$userId)) {
-        mkdir('img/usericons/'.$userId, 0755, true);
+    $userId = preg_replace("/[^a-zA-Z0-9_-]/", "", $_GET['UserID']);
+
+    if (!is_dir($_SERVER['DOCUMENT_ROOT'].'/public/img/usericons/'.$userId)) {
+        mkdir($_SERVER['DOCUMENT_ROOT'].'/public/img/usericons/'.$userId, 0755, true);
     }
 
-    $targetpath = 'img/usericons/'.$userId.'/'.$userId.'profile.png';
+    $targetpath = $_SERVER['DOCUMENT_ROOT'].'/public/img/usericons/'.$userId.'/'.$userId.'profile.png';
     $imagestring = imagecreatefromstring(file_get_contents($_FILES['ProfilePicture']['tmp_name']));
 
     if ($imagestring === false) {

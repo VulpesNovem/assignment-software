@@ -259,8 +259,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .profile-page-icon {
     height: 150px;
+    width: 150px;
 }
 
 .profile-page-edit-icon {
     height: 100px;
+    width: 100px;
 }

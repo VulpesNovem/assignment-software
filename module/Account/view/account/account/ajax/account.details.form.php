@@ -1,6 +1,8 @@
 <?php $userdetails = (new Account\Users)->Details($_SESSION['AssignmentSession']['User'][0]['UserID'])[0]; ?>
 
-<form id="AccountDetailsForm" onsubmit="updateUserProfilePhoto('AccountDetailsForm'); updateUser('AccountDetailsForm'); return false;">
+<form id="AccountDetailsForm" onsubmit="updateUserProfilePhoto('AccountDetailsForm', <?= $userdetails['UserID'] ?>); updateUser('AccountDetailsForm'); return false;" method="post"
+      action="<?=$_SERVER['REQUEST_URI']?>"
+      enctype="multipart/form-data">
     <div class="row mb-3">
         <div class="col-auto me-auto">
             <h4>Account Details</h4>
@@ -12,8 +14,10 @@
 
     <div class="row mx-3 py-3" id="accountDetailsView">
         <div class="col-3 d-flex justify-content-center align-items-center">
-            <?php if(file_exists('img/usericons/'.$userdetails['UserID'].'/'.$userdetails['UserID'].'profile.png')) { ?>
-                <img class="profile-page-icon my-1" src="img/usericons/<?= $userdetails['UserID'].'/'.$userdetails['UserID'] ?>profile.png'">
+            <?php if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/img/usericons/'.$userdetails['UserID'].'/'.$userdetails['UserID'].'profile.png')) { ?>
+            <div class="profile-page-icon my-1" style="border-radius: 50%; overflow: hidden; border: 3px solid var(--primary-text);">
+                <img src="/img/usericons/<?= $userdetails['UserID'].'/'.$userdetails['UserID'] ?>profile.png" style="height: 150px;">
+            </div>
             <?php } else { ?>
                 <i class="profile-page-icon bi bi-person-circle" style="color: var(--primary-text); font-size: 150px; line-height: 0;"></i>
             <?php } ?>
@@ -35,8 +39,10 @@
         <div class="col-3 justify-content-center align-items-center">
             <div class="row mb-2">
                 <div class="col text-center">
-                    <?php if(file_exists('img/usericons/'.$userdetails['UserID'].'/'.$userdetails['UserID'].'profile.png')) { ?>
-                        <img class="profile-page-edit-icon my-1" src="img/usericons/<?= $userdetails['UserID'].'/'.$userdetails['UserID'] ?>profile.png'">
+                    <?php if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/img/usericons/'.$userdetails['UserID'].'/'.$userdetails['UserID'].'profile.png')) { ?>
+                        <div class="profile-page-edit-icon my-1 mx-auto" style="border-radius: 50%; overflow: hidden; border: 3px solid var(--primary-text);">
+                            <img src="/img/usericons/<?= $userdetails['UserID'].'/'.$userdetails['UserID'] ?>profile.png" style="height: 100px;">
+                        </div>
                     <?php } else { ?>
                         <i class="profile-page-icon bi bi-person-circle" style="color: var(--primary-text); font-size: 100px; line-height: 0;"></i>
                     <?php } ?>
@@ -44,7 +50,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <input type="file" class="form-control" name="ProfilePicture" accept="image/*">
+                    <input type="file" class="form-control" name="ProfilePicture" id="ProfilePictureUpload" accept="image/*">
                 </div>
             </div>
         </div>

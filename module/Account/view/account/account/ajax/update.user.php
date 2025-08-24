@@ -1,2 +1,2 @@
-<?php die('Update');
+<?php
 (new Account\Users)->Input($_POST);
