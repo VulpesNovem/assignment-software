@@ -8,7 +8,10 @@
         <a <?php if (!empty($assignmentdetails['SourceLink'])){ echo 'href="'.$assignmentdetails['SourceLink'].'" target="_blank"'; } ?>><h1 style="color: var(--primary-text);"><u><?= $assignmentdetails['AssignmentName'] ?></u></h1></a>
     </div>
     <div class="col-auto ms-auto align-content-center">
-        <h5><?= $assignmentdetails['DisciplineCode'].' '.$assignmentdetails['CourseNumber'] ?></h5>
+        <h5><?= $assignmentdetails['CourseName'] ?></h5>
+    </div>
+    <div class="col-auto align-content-center">
+        <i class="bi bi-circle-fill" style="color: #<?= $assignmentdetails['CardColor'] ?>;"></i>
     </div>
     <div class="col-auto align-content-center">
         <a class="btn btn-primary" onclick="editAssignment(<?= $assignmentdetails['AssignmentID'] ?>)"><i class="bi bi-pencil-square"></i> Edit Assignment</a>

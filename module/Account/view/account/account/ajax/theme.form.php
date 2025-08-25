@@ -12,7 +12,7 @@ $themelist = (new Account\Themes)->All(); ?>
     </div>
 
     <div class="row ms-3 me-3" id="themeDetailsView">
-        <h6 class="col-auto align-content-center">Current Theme:</h6><h6 class="col-auto card-header align-content-center"><?= ((new Account\Themes)->Details($userdetails['ThemeID']))[0]['ThemeName'] ?></h6>
+        <h6 class="col-auto align-content-center">Current Theme:</h6><h6 class="col-auto card card-header align-content-center"><?= ((new Account\Themes)->Details($userdetails['ThemeID']))[0]['ThemeName'] ?></h6>
     </div>
 
     <div class="row ms-3 me-3" id="themeDetailsEdit" style="display: none;">

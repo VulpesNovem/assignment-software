@@ -73,15 +73,28 @@ class Courses
         }
         return false;
     }
+
     public function All() {
         $this->select->from($this->_name)->order($this->_order);
         return $this->_db->selectWith($this->select)->toArray();
     }
+
     public function AllByUserID($userid) {
         if(!empty($userid)) {
             $this->select->from($this->_name);
             $where = new Where();
             $where->equalTo('UserID', $userid);
+            return $this->_db->selectWith($this->select->where($where))->toArray();
+        }
+        return false;
+    }
+
+    public function AllBySemesterID($semesterid)
+    {
+        if(!empty($semesterid)) {
+            $this->select->from($this->_name);
+            $where = new Where();
+            $where->equalTo('SemesterID', $semesterid);
             return $this->_db->selectWith($this->select->where($where))->toArray();
         }
         return false;

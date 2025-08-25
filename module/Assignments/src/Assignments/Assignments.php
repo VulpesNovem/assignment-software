@@ -154,4 +154,28 @@ class Assignments {
         }
         return false;
     }
+
+    public function GetPastBySemesterIDAndUserID ($semesterid, $userid) {
+        if(!empty($semesterid) && !empty($userid)) {
+            $this->select->from('assignments_past');
+            $where = new Where();
+            $where->equalTo('SemesterID', $semesterid);
+            $where->equalTo('UserID', $userid);
+            $this->select->order($this->_order);
+            return $this->_db->selectWith($this->select->where($where))->toArray();
+        }
+        return false;
+    }
+
+    public function GetUpcomingBySemesterIDAndUserID ($semesterid, $userid) {
+        if(!empty($semesterid) && !empty($userid)) {
+            $this->select->from('assignments_upcoming');
+            $where = new Where();
+            $where->equalTo('SemesterID', $semesterid);
+            $where->equalTo('UserID', $userid);
+            $this->select->order($this->_order);
+            return $this->_db->selectWith($this->select->where($where))->toArray();
+        }
+        return false;
+    }
 }

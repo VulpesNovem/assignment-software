@@ -71,6 +71,7 @@ function updateAssignmentCompletion(assignmentid, input){
 }
 
 function updateUser (formid) {
+    showSpinner();
     var data = $('#' + formid).serialize();
     $.post('/account/ajax/update.user',data,function(response){}).done(function(response){
         location.reload();
@@ -78,15 +79,11 @@ function updateUser (formid) {
 }
 
 function updateUserProfilePhoto (formid, userid) {
+    showSpinner();
     var formData = new FormData();
     formData.append('ProfilePicture', $('#ProfilePictureUpload')[0].files[0]);
 
-    $.ajax({
-        type : 'POST',
-        url : '/account/ajax/update.user.profile.photo?UserID=' + userid,
-        data : formData,
-        processData: false,
-        contentType: false,
+    $.ajax({type : 'POST', url : '/account/ajax/update.user.profile.photo?UserID=' + userid, data : formData, processData: false, contentType: false,}).done(function(response){
     });
 
     return false;

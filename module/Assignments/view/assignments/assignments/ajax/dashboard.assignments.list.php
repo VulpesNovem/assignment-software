@@ -1,7 +1,10 @@
 <?php Use Assignments\Assignments;
 
-$pastassignmentslist = (new Assignments)->GetPastByUserID($_SESSION['AssignmentSession']['User'][0]['UserID']);
-$upcomingassignmentslist = (new Assignments)->GetUpcomingByUserID($_SESSION['AssignmentSession']['User'][0]['UserID']);
+$currentsemesterid = (new \Courses\Semesters)->getCurrentSemester();
+//$semestercourses = (new \Courses\Courses)->AllBySemesterID($currentsemester['SemesterID']);
+
+$pastassignmentslist = (new Assignments)->GetPastBySemesterIDAndUserID($currentsemesterid, $_SESSION['AssignmentSession']['User'][0]['UserID']);
+$upcomingassignmentslist = (new Assignments)->GetUpcomingBySemesterIDAndUserID($currentsemesterid, $_SESSION['AssignmentSession']['User'][0]['UserID']);
 
 foreach ($upcomingassignmentslist as $upcomingassignment) {
     $date = date('m/d/Y', strtotime($upcomingassignment['DueDate']));
