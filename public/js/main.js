@@ -10,7 +10,14 @@ function clearModal() {
     $('#MainModal .modal-title').html('');
     $('#MainModal .modal-body').html('');
     $('#MainModal .modal-footer').html('');
-    return;
+}
+
+function showSpinner() {
+    $('#loadingSpinner').show();
+}
+
+function hideSpinner() {
+    $('#loadingSpinner').hide();
 }
 
 function loadCourses (semesterid) {

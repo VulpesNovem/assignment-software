@@ -288,3 +288,16 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.25em;
     line-height: 0;
 }
+
+.loading-spinner-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}

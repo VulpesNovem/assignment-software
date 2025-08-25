@@ -1,8 +1,6 @@
 <?php $userdetails = (new Account\Users)->Details($_SESSION['AssignmentSession']['User'][0]['UserID'])[0]; ?>
 
-<form id="AccountDetailsForm" onsubmit="updateUserProfilePhoto('AccountDetailsForm', <?= $userdetails['UserID'] ?>); updateUser('AccountDetailsForm'); return false;" method="post"
-      action="<?=$_SERVER['REQUEST_URI']?>"
-      enctype="multipart/form-data">
+<form id="AccountDetailsForm" onsubmit="updateUserProfilePhoto('AccountDetailsForm', <?= $userdetails['UserID'] ?>); updateUser('AccountDetailsForm'); return false;" method="post" action="<?=$_SERVER['REQUEST_URI']?>" enctype="multipart/form-data">
     <div class="row mb-3">
         <div class="col-auto me-auto">
             <h4>Account Details</h4>
