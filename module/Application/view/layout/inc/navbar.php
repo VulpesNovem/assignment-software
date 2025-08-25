@@ -15,12 +15,17 @@
         <a class="nav-item nav-link" href="/tasks"><i class="bi bi-list-check"></i> &nbsp Tasks</a>
 
         <div class="dropdown ms-auto">
-            <div class="dropdown-button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><i class="bi bi-person-circle"></i></div>
+            <div class="dropdown-button align-content-center" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="line-height: 0;">
+                <?php if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/img/usericons/'.$userdetails['UserID'].'/'.$userdetails['UserID'].'profile.png')) { ?>
+                    <div class="profile-navbar-icon my-1" style="border: 1px solid var(--secondary-text);">
+                        <img src="/img/usericons/<?= $userdetails['UserID'].'/'.$userdetails['UserID'] ?>profile.png" style="height: 100%;">
+                    </div>
+                <?php } else { ?>
+                    <i class="profile-navbar-icon bi bi-person-circle m-0"></i>
+                <?php } ?>
+            </div>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href=""><i class="bi bi-exclamation-lg"></i> Action</a></li>
-                <li><a class="dropdown-item" href="/account"><i class="bi bi-gear-wide-connected"></i> Settings</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><span class="dropdown-item"><?= $userdetails['FirstName'].' '.$userdetails['LastName'] ?></span></li>
+                <li><a class="dropdown-item" href="/account"><i class="bi bi-gear-wide-connected"></i> Account</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/logout" style="color: var(--logout-link)"><i class="bi bi-door-open-fill"></i> Logout</a></li>
             </ul>

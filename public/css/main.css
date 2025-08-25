@@ -260,9 +260,31 @@ h1, h2, h3, h4, h5, h6 {
 .profile-page-icon {
     height: 150px;
     width: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    /*border: 3px solid var(--primary-text);*/
+    color: var(--primary-text);
+    font-size: 150px;
+    line-height: 0;
 }
 
 .profile-page-edit-icon {
     height: 100px;
     width: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    /*border: 2px solid var(--primary-text);*/
+    color: var(--primary-text);
+    font-size: 100px;
+    line-height: 0;
+}
+
+.profile-navbar-icon {
+    height: 1.25em;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    overflow: hidden;
+    color: var(--secondary-text);
+    font-size: 1.25em;
+    line-height: 0;
 }

@@ -13,13 +13,13 @@
     </div>
 
     <div class="row mx-3 py-3" id="accountDetailsView">
-        <div class="col-3 d-flex justify-content-center align-items-center">
+        <div class="col-3 text-center">
             <?php if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/img/usericons/'.$userdetails['UserID'].'/'.$userdetails['UserID'].'profile.png')) { ?>
-            <div class="profile-page-icon my-1" style="border-radius: 50%; overflow: hidden; border: 3px solid var(--primary-text);">
+            <div class="profile-page-icon my-1 mx-auto" style="border: 1px solid var(--primary-text);">
                 <img src="/img/usericons/<?= $userdetails['UserID'].'/'.$userdetails['UserID'] ?>profile.png" style="height: 150px;">
             </div>
             <?php } else { ?>
-                <i class="profile-page-icon bi bi-person-circle" style="color: var(--primary-text); font-size: 150px; line-height: 0;"></i>
+                <i class="profile-page-icon bi bi-person-circle"></i>
             <?php } ?>
         </div>
         <div class="col-6 align-content-center">
@@ -40,11 +40,11 @@
             <div class="row mb-2">
                 <div class="col text-center">
                     <?php if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/img/usericons/'.$userdetails['UserID'].'/'.$userdetails['UserID'].'profile.png')) { ?>
-                        <div class="profile-page-edit-icon my-1 mx-auto" style="border-radius: 50%; overflow: hidden; border: 3px solid var(--primary-text);">
+                        <div class="profile-page-edit-icon my-1 mx-auto" style="border: 1px solid var(--primary-text);">
                             <img src="/img/usericons/<?= $userdetails['UserID'].'/'.$userdetails['UserID'] ?>profile.png" style="height: 100px;">
                         </div>
                     <?php } else { ?>
-                        <i class="profile-page-icon bi bi-person-circle" style="color: var(--primary-text); font-size: 100px; line-height: 0;"></i>
+                        <i class="profile-page-edit-icon bi bi-person-circle m-0"></i>
                     <?php } ?>
                 </div>
             </div>
